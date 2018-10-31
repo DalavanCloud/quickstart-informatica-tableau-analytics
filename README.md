@@ -1,0 +1,1 @@
+# quickstart-informatica-tableau-analytics

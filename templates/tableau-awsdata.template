@@ -694,12 +694,6 @@
                "RegEmail":{  
                   "Ref":"EmailID"
                },
-			   "InstanceRole":{  
-                  "Fn::GetAtt":[  
-                     "IamStack",
-                     "Outputs.InstanceRole"
-                  ]
-               },
                "RDSDatabasePort":"1521",
                "RDSHost":{  
                   "Fn::GetAtt":[  

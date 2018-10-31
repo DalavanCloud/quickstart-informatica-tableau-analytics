@@ -154,7 +154,11 @@
 	  "QSS3Bucket":{
 		 "Description":"Bucket containing tableau datasource and workbook files",
          "Type":"String"
-	  }
+	  },
+	  "InstanceRole":{  
+         "Description":"Informatica Server EC2 Instance Role",
+         "Type":"String"
+      }
    },
    "Mappings":{  
       "AWSAMIRegionMap":{  
@@ -245,7 +249,20 @@
    "Resources":{  
       "TableauWindowsServer":{  
          "Type":"AWS::EC2::Instance",
-         "Metadata":{  
+         "Metadata":{
+            "AWS::CloudFormation::Authentication":{  
+               "S3AccessCreds":{  
+                  "type":"S3",
+                  "roleName":{  
+                     "Ref":"InstanceRole"
+                  },
+                  "buckets":[  
+                     {  
+                        "Ref":"QSS3Bucket"
+                     }
+                  ]
+               }
+            },		 
             "AWS::CloudFormation::Init":{  
                "config":{  
                   "files":{  
@@ -328,22 +345,26 @@
                         "source":{
 						
 						   "Fn::Sub":"https://${QSS3Bucket}.s3.amazonaws.com/update-datasource.py"
-						}
+						},
+                        "authentication":"S3AccessCreds"
                      },
                      "c:\\tabsetup\\redshift.tds":{  
                         "source":{
 						   "Fn::Sub":"https://${QSS3Bucket}.s3.amazonaws.com/redshift.tds"
-						}
+						},
+                        "authentication":"S3AccessCreds"
                      },
                      "c:\\tabsetup\\informatica.twb":{ 
 						"source":{
 						   "Fn::Sub":"https://${QSS3Bucket}.s3.amazonaws.com/informatica.twb"
-						}					 
+						},
+                        "authentication":"S3AccessCreds"					 
                      },
                      "c:\\tabsetup\\oracle.tds":{  
 						"source":{
 						   "Fn::Sub":"https://${QSS3Bucket}.s3.amazonaws.com/oracle.tds"
-						}
+						},
+                        "authentication":"S3AccessCreds"
                      },
                      "c:\\tabsetup\\SilentInstaller.py":{  
                         "source":{  

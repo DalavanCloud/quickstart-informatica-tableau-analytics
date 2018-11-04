@@ -16,12 +16,8 @@
          "Description":"Root of the stack name used to limit Cloud Formation Describe command access",
          "Type":"String"
       },
-      "InformaticaLicenseBucket":{  
-         "Description":"Bucket holding Informatica license",
-         "Type":"String"
-      },
-      "S3BucketName":{  
-         "Description":"Bucket for Informatica mapping",
+      "IICSTaskBucketName":{  
+         "Description":"S3 Bucket Name used for Informatica Intelligent Cloud Services Mapping Jobs",
          "Type":"String"
       }
    },
@@ -83,23 +79,12 @@
                            "Effect":"Allow",
                            "Action":[  
                               "s3:List*",
-                              "s3:Get*"
+                              "s3:Get*",
+                              "s3:Put*"
                            ],
                            "Resource":[  
                               {  
-                                 "Fn::Sub":"arn:aws:s3:::${InformaticaLicenseBucket}"
-                              }
-                           ]
-                        },
-                        {  
-                           "Effect":"Allow",
-                           "Action":[  
-                              "s3:List*",
-                              "s3:Get*"
-                           ],
-                           "Resource":[  
-                              {  
-                                 "Fn::Sub":"arn:aws:s3:::${InformaticaLicenseBucket}/*"
+                                 "Fn::Sub":"arn:aws:s3:::${IICSTaskBucketName}"
                               }
                            ]
                         },
@@ -112,20 +97,7 @@
                            ],
                            "Resource":[  
                               {  
-                                 "Fn::Sub":"arn:aws:s3:::${S3BucketName}"
-                              }
-                           ]
-                        },
-                        {  
-                           "Effect":"Allow",
-                           "Action":[  
-                              "s3:List*",
-                              "s3:Get*",
-                              "s3:Put*"
-                           ],
-                           "Resource":[  
-                              {  
-                                 "Fn::Sub":"arn:aws:s3:::${S3BucketName}/*"
+                                 "Fn::Sub":"arn:aws:s3:::${IICSTaskBucketName}/*"
                               }
                            ]
                         },

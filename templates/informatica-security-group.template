@@ -547,61 +547,12 @@
                },
                {  
                   "IpProtocol":"tcp",
-                  "FromPort":"8095",
-                  "ToPort":"8095",
-                  "CidrIp":{  
-                     "Ref":"RemoteAccessCIDR"
-                  },
-				  "Description":"Rule to open port for Informatica domain for the IP range user has provided"
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"5439",
-                  "ToPort":"5439",
-                  "CidrIp":{  
-                     "Ref":"VPCCIDR"
-                  },
-				  "Description":"Rule to open port to access Redshift cluster"
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"8785",
-                  "ToPort":"8785",
-                  "CidrIp":{  
-                     "Ref":"RemoteAccessCIDR"
-                  }
-               },
-               {  
-                  "IpProtocol":"tcp",
                   "FromPort":"8085",
                   "ToPort":"8085",
                   "CidrIp":{  
                      "Ref":"RemoteAccessCIDR"
-                  }
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"9085",
-                  "ToPort":"9085",
-                  "CidrIp":{  
-                     "Ref":"RemoteAccessCIDR"
-                  }
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"8089",
-                  "ToPort":"8089",
-                  "CidrIp":{  
-                     "Ref":"RemoteAccessCIDR"
-                  }
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"443",
-                  "ToPort":"443",
-                  "CidrIp":{  
-                     "Ref":"RemoteAccessCIDR"
-                  }
+                  },
+				  "Description":"Rule to open port to access LDM Service for the IP range user has provided"
                },
                {  
                   "IpProtocol":"tcp",
@@ -609,23 +560,8 @@
                   "ToPort":"22",
                   "CidrIp":{  
                      "Ref":"RemoteAccessCIDR"
-                  }
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"21000",
-                  "ToPort":"22000",
-                  "CidrIp":{  
-                     "Ref":"RemoteAccessCIDR"
-                  }
-               },
-               {  
-                  "IpProtocol":"udp",
-                  "FromPort":"1434",
-                  "ToPort":"1434",
-                  "CidrIp":{  
-                     "Ref":"RemoteAccessCIDR"
-                  }
+                  },
+				  "Description":"Rule to open SSh port for the IP range user has provided"
                }
             ]
          }
@@ -684,28 +620,10 @@
                   "IpProtocol":"tcp",
                   "FromPort":"1521",
                   "ToPort":"1521",
-                  "SourceSecurityGroupId":{  
-                     "Ref":"InfaDomainSecurityGroup"
-                  },
-				  "Description":"Rule to make RDS accessible to the domain"
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"1521",
-                  "ToPort":"1521",
-                  "SourceSecurityGroupId":{  
-                     "Ref":"AdditionalInformaticaSecurityGroup"
-                  },
-				  "Description":"Rule to make RDS accessible to the IHS node"
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"1521",
-                  "ToPort":"1521",
                   "CidrIp":{  
                      "Ref":"VPCCIDR"
                   },
-				 "Description":"Rule to make RDS to tableau and other components in a VPC."
+				 "Description":"Rule to make RDS accessiblecto Tableau , Informatica domain and other components in a VPC."
 
                }
             ]
@@ -726,7 +644,8 @@
                   "ToPort":"8080",
                   "CidrIp":{  
                      "Ref":"RemoteAccessCIDR"
-                  }
+                  },
+				  "Description":"Rule to open port to Access the Ambari Server"
                },
                {  
                   "IpProtocol":"tcp",
@@ -734,7 +653,8 @@
                   "ToPort":"8088",
                   "CidrIp":{  
                      "Ref":"RemoteAccessCIDR"
-                  }
+                  },
+				  "Description":"Rule to open port to access the hadoop cluster jobs."
                },
                {  
                   "IpProtocol":"tcp",
@@ -742,63 +662,8 @@
                   "ToPort":"8042",
                   "CidrIp":{  
                      "Ref":"RemoteAccessCIDR"
-                  }
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"50070",
-                  "ToPort":"50070",
-                  "CidrIp":{  
-                     "Ref":"RemoteAccessCIDR"
-                  }
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"19888",
-                  "ToPort":"19888",
-                  "CidrIp":{  
-                     "Ref":"RemoteAccessCIDR"
-                  }
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"8080",
-                  "ToPort":"8080",
-                  "CidrIp":{  
-                     "Ref":"VPCCIDR"
-                  }
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"8088",
-                  "ToPort":"8088",
-                  "CidrIp":{  
-                     "Ref":"VPCCIDR"
-                  }
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"8042",
-                  "ToPort":"8042",
-                  "CidrIp":{  
-                     "Ref":"VPCCIDR"
-                  }
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"50070",
-                  "ToPort":"50070",
-                  "CidrIp":{  
-                     "Ref":"VPCCIDR"
-                  }
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"19888",
-                  "ToPort":"19888",
-                  "CidrIp":{  
-                     "Ref":"VPCCIDR"
-                  }
+                  },
+				  "Description":"Rule to open port to access the hadoop cluster Node Manager ."
                },
                {  
                   "IpProtocol":"tcp",

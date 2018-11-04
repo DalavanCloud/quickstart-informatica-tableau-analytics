@@ -396,7 +396,9 @@
    "Mappings":{  
       "InformaticaConfiguration":{  
          "InstallationConfig":{  
-            "InstallationBucket":"cfn-register",
+            "InstallationBucket":"aws-informatica-tableau-analytics-resources",
+			"TableauDatasetsubfolder":"tableau-resources",
+			"InformaticaKeyfolder":"informatica",
             "InstallationLicenseKey":"AWS_Quckstart_Trial_00000_172604.key"
          }
       }
@@ -728,16 +730,34 @@
                "RedshiftUsername":{  
                   "Ref":"RedshiftUsername"
                },
-			   "QSS3Bucket":{  
+			   "DemoDataBucket":{  
+                    "Fn::FindInMap":[  
+                        "InformaticaConfiguration",
+                        "InstallationConfig",
+                        "InstallationBucket"
+                    ]
+                },
+				
+				"DemoDataBucketFolder":{ 
+                  "Fn::Join":[  
+                              "",
+                                
+							  [
+							    {  
                                     "Fn::FindInMap":[  
                                        "InformaticaConfiguration",
                                        "InstallationConfig",
-                                       "InstallationBucket"
+                                       "TableauDatasetsubfolder"
                                     ]
-                                 }
+                                 },
+								 "/"
+								 ]]
+								 
             }
          }
-      },
+      }
+	  
+	  },
       "S3BucketStack":{  
          "Type":"AWS::CloudFormation::Stack",
          "DependsOn":["LambdaStack","LambdaMappingStack","LambdaLicenseStack"],
@@ -764,17 +784,10 @@
                "QSS3KeyPrefix":{  
                   "Fn::Sub":"${QSS3KeyPrefix}"
                },
-               "InformaticaLicenseBucket":{  
-                                    "Fn::FindInMap":[  
-                                       "InformaticaConfiguration",
-                                       "InstallationConfig",
-                                       "InstallationBucket"
-                                    ]
-                                 },
                "StackRoot":{  
                   "Fn::Sub":"${AWS::StackName}"
                },
-               "S3BucketName":{  
+               "IICSTaskBucketName":{  
                   "Fn::GetAtt":[  
                      "S3BucketStack",
                      "Outputs.InformaticaS3Bucket"
@@ -953,13 +966,28 @@
                                        "InstallationBucket"
                                     ]
                                  },
-               "InformaticaKeyName":{  
+               "InformaticaKeyName":{"Fn::Join":[  
+                              "",
+                                
+							  [
+							    {  
+                                    "Fn::FindInMap":[  
+                                       "InformaticaConfiguration",
+                                       "InstallationConfig",
+                                       "InformaticaKeyfolder"
+                                    ]
+                                 },
+								 "/",
+								 {  
                                     "Fn::FindInMap":[  
                                        "InformaticaConfiguration",
                                        "InstallationConfig",
                                        "InstallationLicenseKey"
                                     ]
-                                 },
+                                 }
+								 ]]
+								 },
+								 
                "RedshiftHost":{  
                   "Fn::If":[  
                      "CreateRedshiftCondition",
@@ -980,7 +1008,7 @@
                "InformaticaAdminPassword":{  
                   "Ref":"InformaticaAdminPassword"
                },
-               "S3BucketName":{  
+               "IICSTaskBucketName":{  
                   "Fn::GetAtt":[  
                      "S3BucketStack",
                      "Outputs.InformaticaS3Bucket"
@@ -1008,8 +1036,9 @@
                   "Ref":"RDSInstancePassword"
                }
             }
-         }
-      },
+         
+      }
+	  },
       "DnsRecordSetStack":{  
          "Type":"AWS::CloudFormation::Stack",
          "DependsOn":[  
@@ -1064,6 +1093,20 @@
                      "Outputs.PrivateDnsName"
                   ]
                },
+               "RedshiftPrivateDnsName":{  
+                  "Fn::If":[  
+                     "CreateRedshiftCondition",
+                     {  
+                        "Fn::GetAtt":[  
+                           "RedshiftClusterStack",
+                           "Outputs.RedshiftHost"
+                        ]
+                     },
+                     {  
+                        "Ref":"RedshiftHost"
+                     }
+                  ]
+               },
                "InformaticaHadoopPublicDnsName":{  
                   "Fn::GetAtt":[  
                      "InformaticaHadoopNodeStack",
@@ -1093,24 +1136,11 @@
                      "RDSStack",
                      "Outputs.EndpointAddress"
                   ]
-               },
-               "RedshiftPrivateDnsName":{  
-                  "Fn::If":[  
-                     "CreateRedshiftCondition",
-                     {  
-                        "Fn::GetAtt":[  
-                           "RedshiftClusterStack",
-                           "Outputs.RedshiftHost"
-                        ]
-                     },
-                     {  
-                        "Ref":"RedshiftHost"
-                     }
-                  ]
                }
             }
          }
       }
+   
    },
    "Outputs":{  
       "TableauServerURL":{  
@@ -1139,6 +1169,23 @@
                   },
                   "/"
                ]
+            ]
+         }
+      },
+	   "RDGWPublicName":{  
+         "Description":"Convenient Name for RDGW Public Access",
+         "Value":{  
+            "Fn::If":[  
+               "HostedZoneIsSpecifiedCondition",
+               {  
+                  "Fn::GetAtt":[  
+                     "DnsRecordSetStack",
+                     "Outputs.RDGWPublicName"
+                  ]
+               },
+               {  
+                  "Ref":"RemoteDesktopGatewayElasticIP"
+               }
             ]
          }
       },
@@ -1229,24 +1276,7 @@
             ]
          }
       },
-      "RDGWPublicName":{  
-         "Description":"Convenient Name for RDGW Public Access",
-         "Value":{  
-            "Fn::If":[  
-               "HostedZoneIsSpecifiedCondition",
-               {  
-                  "Fn::GetAtt":[  
-                     "DnsRecordSetStack",
-                     "Outputs.RDGWPublicName"
-                  ]
-               },
-               {  
-                  "Ref":"RemoteDesktopGatewayElasticIP"
-               }
-            ]
-         }
-      },
-	  "InformaticaDomainPublicName":{  
+	    "InformaticaDomainPublicName":{  
          "Description":"Convenient Name for Informatica Domain Public Access",
          "Value":{  
             "Fn::If":[  
@@ -1334,6 +1364,7 @@
             ]
          }
       },
+	   
 	   "RDSPrivateName": {
             "Description": "Convenient Name for Postgres RDS Private Access",
             "Value": {
@@ -1354,5 +1385,7 @@
                 ]
             }
         }
+        
    }
 }
+

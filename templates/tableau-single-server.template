@@ -151,8 +151,12 @@
          "Description":"Redshift Username",
          "Type":"String"
       },
-	  "QSS3Bucket":{
+	  "DemoDataBucket":{
 		 "Description":"Bucket containing tableau datasource and workbook files",
+         "Type":"String"
+	  },
+	  "DemoDataBucketFolder":{
+		 "Description":"Bucket folder containing tableau datasource and workbook files",
          "Type":"String"
 	  }
    },
@@ -243,6 +247,21 @@
       }
    },
    "Resources":{  
+	 "TableauServerRecoveryTestAlarm": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmDescription": "Trigger a recovery when Tableau Server status check fails for 5 consecutive minutes.",
+        "Namespace": "AWS/EC2" ,
+        "MetricName": "StatusCheckFailed_System",
+        "Statistic": "Minimum",
+        "Period": "60",
+        "EvaluationPeriods": "5",
+        "ComparisonOperator": "GreaterThanThreshold",
+        "Threshold": "0",
+        "AlarmActions": [ {"Fn::Join" : ["", ["arn:aws:automate:", { "Ref" : "AWS::Region" }, ":ec2:recover" ]]} ],
+        "Dimensions": [{"Name": "InstanceId","Value": {"Ref": "TableauWindowsServer"}}]
+		}
+	 },
       "TableauWindowsServer":{  
          "Type":"AWS::EC2::Instance",
          "Metadata":{  
@@ -327,22 +346,22 @@
                      "c:\\tabsetup\\update-datasource.py":{  
                         "source":{
 						
-						   "Fn::Sub":"https://${QSS3Bucket}.s3.amazonaws.com/update-datasource.py"
+						   "Fn::Sub":"https://${DemoDataBucket}.s3.amazonaws.com/${DemoDataBucketFolder}update-datasource.py"
 						}
                      },
                      "c:\\tabsetup\\redshift.tds":{  
                         "source":{
-						   "Fn::Sub":"https://${QSS3Bucket}.s3.amazonaws.com/redshift.tds"
+						   "Fn::Sub":"https://${DemoDataBucket}.s3.amazonaws.com/${DemoDataBucketFolder}redshift.tds"
 						}
                      },
                      "c:\\tabsetup\\informatica.twb":{ 
 						"source":{
-						   "Fn::Sub":"https://${QSS3Bucket}.s3.amazonaws.com/informatica.twb"
+						   "Fn::Sub":"https://${DemoDataBucket}.s3.amazonaws.com/${DemoDataBucketFolder}informatica.twb"
 						}					 
                      },
                      "c:\\tabsetup\\oracle.tds":{  
 						"source":{
-						   "Fn::Sub":"https://${QSS3Bucket}.s3.amazonaws.com/oracle.tds"
+						   "Fn::Sub":"https://${DemoDataBucket}.s3.amazonaws.com/${DemoDataBucketFolder}oracle.tds"
 						}
                      },
                      "c:\\tabsetup\\SilentInstaller.py":{  

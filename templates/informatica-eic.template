@@ -80,8 +80,8 @@
          "Description":"Hadoop Gateway Server Private IP",
          "Type":"String"
       },
-      "S3BucketName":{  
-         "Description":"Informatica S3 Bucket Name",
+      "IICSTaskBucketName":{  
+         "Description":"S3 Bucket used for Informatica Intelligent Cloud Services Mapping Jobs",
          "Type":"String"
       },
       "Username":{  
@@ -231,6 +231,21 @@
       }
    },
    "Resources":{  
+     "EDCRecoveryTestAlarm": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmDescription": "Trigger a recovery when EDC instance status check fails for 5 consecutive minutes.",
+        "Namespace": "AWS/EC2" ,
+        "MetricName": "StatusCheckFailed_System",
+        "Statistic": "Minimum",
+        "Period": "60",
+        "EvaluationPeriods": "5",
+        "ComparisonOperator": "GreaterThanThreshold",
+        "Threshold": "0",
+        "AlarmActions": [ {"Fn::Join" : ["", ["arn:aws:automate:", { "Ref" : "AWS::Region" }, ":ec2:recover" ]]} ],
+        "Dimensions": [{"Name": "InstanceId","Value": {"Ref": "AdministrationServer"}}]
+      }
+    },
       "InformaticaS3User":{  
          "Type":"AWS::IAM::User",
          "Properties":{  
@@ -248,10 +263,10 @@
                            ],
                            "Resource":[  
                               {  
-                                 "Fn::Sub":"arn:aws:s3:::${S3BucketName}"
+                                 "Fn::Sub":"arn:aws:s3:::${IICSTaskBucketName}"
                               },
                               {  
-                                 "Fn::Sub":"arn:aws:s3:::${S3BucketName}/*"
+                                 "Fn::Sub":"arn:aws:s3:::${IICSTaskBucketName}/*"
                               }
                            ],
                            "Effect":"Allow"
@@ -761,7 +776,7 @@
                                  "\n",
                                  "bucketName=",
                                  {  
-                                    "Ref":"S3BucketName"
+                                    "Ref":"IICSTaskBucketName"
                                  },
                                  "\n",
                                  "regionName='",
@@ -921,7 +936,7 @@
                                  },
                                  " ",
                                  {  
-                                    "Ref":"S3BucketName"
+                                    "Ref":"IICSTaskBucketName"
                                  }
                               ]
                            ]
@@ -1243,7 +1258,7 @@
                                  "\n",
                                  "bucketName=",
                                  {  
-                                    "Ref":"S3BucketName"
+                                    "Ref":"IICSTaskBucketName"
                                  },
                                  "\n",
                                  "redshiftDbName=",
@@ -1354,7 +1369,7 @@
 								 "\n",
 								  "bucketName=",
                                  {  
-                                    "Ref":"S3BucketName"
+                                    "Ref":"IICSTaskBucketName"
                                  },
                                  "\n",
                                  "redshiftDbName=",
@@ -1615,7 +1630,7 @@
             "Ref":"AdministrationServer"
          }
       },
-      "InformaticaDomainPrivateDNSName":{  
+      "InformaticaPrivateDNSName":{  
          "Value":{  
             "Fn::GetAtt":[  
                "AdministrationServer",

@@ -655,7 +655,7 @@
          "Properties":{  
             "TemplateURL":{  
                "Fn::Sub":[  
-                  "https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-microsoft-gateway/templates/rdgw-standalone.template",
+                  "https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-microsoft-rdgateway/templates/rdgw-standalone.template",
                   {  
                      "QSS3Region":{  
                         "Fn::If":[  

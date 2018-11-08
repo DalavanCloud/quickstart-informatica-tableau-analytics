@@ -8,7 +8,7 @@
       },
       "InformaticaKeyS3Bucket":{  
          "Type":"String",
-         "Description":"Name of the Amazon S3 bucket in your account that contains Informatica Key"
+         "Description":"Name of the Amazon S3 bucket that contains the Informatica Trial Key"
       },
       "InformaticaKeyName":{  
          "Type":"String",

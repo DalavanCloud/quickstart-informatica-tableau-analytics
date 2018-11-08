@@ -19,6 +19,10 @@
       "IICSTaskBucketName":{  
          "Description":"S3 Bucket Name used for Informatica Intelligent Cloud Services Mapping Jobs",
          "Type":"String"
+      },
+      "InformaticaInstallationBucket":{
+         "Description":"S3 Bucket Name used to setup Informatica trial and setting up dashboards",
+         "Type":"String"
       }
    },
    "Mappings":{  
@@ -98,6 +102,32 @@
                            "Resource":[  
                               {  
                                  "Fn::Sub":"arn:aws:s3:::${IICSTaskBucketName}/*"
+                              }
+                           ]
+                        },
+                        {
+                           "Effect":"Allow",
+                           "Action":[
+                              "s3:List*",
+                              "s3:Get*",
+                              "s3:Put*"
+                           ],
+                           "Resource":[
+                              {
+                                 "Fn::Sub":"arn:aws:s3:::${InformaticaInstallationBucket}"
+                              }
+                           ]
+                        },
+                        {
+                           "Effect":"Allow",
+                           "Action":[
+                              "s3:List*",
+                              "s3:Get*",
+                              "s3:Put*"
+                           ],
+                           "Resource":[
+                              {
+                                 "Fn::Sub":"arn:aws:s3:::${InformaticaInstallationBucket}/*"
                               }
                            ]
                         },

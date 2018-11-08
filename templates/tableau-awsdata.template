@@ -792,6 +792,13 @@
                      "S3BucketStack",
                      "Outputs.InformaticaS3Bucket"
                   ]
+               },
+               "InformaticaInstallationBucket": {
+                  "Fn::FindInMap":[
+                     "InformaticaConfiguration",
+                     "InstallationConfig",
+                     "InstallationBucket"
+                  ]
                }
             }
          }

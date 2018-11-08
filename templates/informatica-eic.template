@@ -484,7 +484,7 @@
                                  "/sbin/service infaservice start  \n",
 								 "sleep 180  \n",
 								 "/opt/informatica/isp/bin/infacmd.sh isp UpdateDomainOptions -dn Domain -un Administrator  -pd Administrator  -do TLSMode=true \n",
-								 "/opt/informatica/isp/bin/infacmd.sh UpdateDomainOptions -dn Domain_ttt1011 -un Administrator -pd Administrator -do MasterDBRefreshInterval=180 \n",
+								 "/opt/informatica/isp/bin/infacmd.sh UpdateDomainOptions -dn Domain -un Administrator -pd Administrator -do MasterDBRefreshInterval=180 \n",
 								 "/sbin/service infaservice stop  \n",
 								 "sleep 180  \n",
 								 "/opt/informatica/java/jre/bin/keytool  -genkey -alias infa_dflt -keyalg RSA -keypass changeit -storepass changeit -keystore /opt/informatica//tomcat/conf/Default.keystore -dname CN=$Adminpublicip,OU=Informatica,O=Informatica,L=RedwoodCity,S=California,C=US -validity 365  \n",

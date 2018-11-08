@@ -210,8 +210,8 @@
       },
       "DefaultConfiguration":{  
          "InstallationConfig":{  
-            "InstallationBucket":"testingtsmtableau",
-            "InstallationExecutable":"Tableau-Server-2018.2-Beta2-x64.exe"
+            "InstallationBucket":"tableau-quickstart",
+            "InstallationExecutable":"TableauServer-64bit-2018-3-0.exe"
          },
          "MachineConfiguration":{  
             "SystemVolumeSize":50,

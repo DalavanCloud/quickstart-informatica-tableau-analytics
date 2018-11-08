@@ -1195,7 +1195,7 @@
             "Fn::Join":[  
                "",
                [  
-                  "http://",
+                  "https://",
                   {  
                      "Fn::If":[  
                         "HostedZoneIsSpecifiedCondition",
@@ -1224,7 +1224,7 @@
             "Fn::Join":[  
                "",
                [  
-                  "http://",
+                  "https://",
                   {  
                      "Fn::If":[  
                         "HostedZoneIsSpecifiedCondition",
@@ -1253,7 +1253,7 @@
             "Fn::Join":[  
                "",
                [  
-                  "http://",
+                  "https://",
                   {  
                      "Fn::If":[  
                         "HostedZoneIsSpecifiedCondition",

@@ -482,7 +482,49 @@
                                  "/opt/informatica/isp/bin/infasetup.sh  updateGatewayNode -na $Adminpublicip:6005 -rst \n",
                                  "sleep 30  \n",
                                  "/sbin/service infaservice start  \n",
-                                 "sleep 180  \n",
+								 "sleep 180  \n",
+								 "/opt/informatica/isp/bin/infacmd.sh isp UpdateDomainOptions -dn Domain -un Administrator  -pd Administrator  -do TLSMode=true \n",
+								 "/opt/informatica/isp/bin/infacmd.sh UpdateDomainOptions -dn Domain_ttt1011 -un Administrator -pd Administrator -do MasterDBRefreshInterval=180 \n",
+								 "/sbin/service infaservice stop  \n",
+								 "sleep 180  \n",
+								 "/opt/informatica/java/jre/bin/keytool  -genkey -alias infa_dflt -keyalg RSA -keypass changeit -storepass changeit -keystore /opt/informatica//tomcat/conf/Default.keystore -dname CN=$Adminpublicip,OU=Informatica,O=Informatica,L=RedwoodCity,S=California,C=US -validity 365  \n",
+								 "/opt/informatica/isp/bin/infasetup.sh  updateGatewayNode -tls true -hs 8443 -kf /opt/informatica/tomcat/conf/Default.keystore -rst \n",
+								 "/opt/informatica/java/jre/bin/keytool  -export -keystore /opt/informatica/tomcat/conf/Default.keystore -alias infa_dflt -storepass changeit -file /opt/informatica/tomcat/conf/infa_dflt.cert \n",
+								 "/opt/informatica/java/jre/bin/keytool  -import -noprompt -file /opt/informatica/tomcat/conf/infa_dflt.cert -alias infa_dflt -keystore /opt/informatica/services/shared/security/infa_truststore.jks -storepass pass2038@infaSSL \n",
+								 "rm -rf /opt/informatica/tomcat/work/* \n",
+                                 "rm -rf /opt/informatica/tomcat/temp/* \n",
+                                 "rm -rf /opt/informatica/tomcat/webapps/ROOT \n",
+                                 "rm -rf /opt/informatica/tomcat/webapps/adminconsole \n",
+                                 "rm -rf /opt/informatica/tomcat/webapps/coreservices \n",
+                                 "rm -rf /opt/informatica/tomcat/webapps/csm \n",
+                                 "rm -rf /opt/informatica/services/AdministratorConsole/webapps/ROOT \n",
+                                 "rm -rf /opt/informatica/services/AdministratorConsole/webapps/adminconsole \n",
+                                 "rm -rf /opt/informatica/services/AdministratorConsole/webapps/adminhelp/  \n",
+                                 "rm -rf /opt/informatica/services/AdministratorConsole/webapps/administrator \n",
+                                 "rm -rf /opt/informatica/services/AdministratorConsole/webapps/monitoring \n",
+                                 "rm -rf /opt/informatica/services/AdministratorConsole/webapps/ows \n",
+                                 "rm -rf /opt/informatica/services/AdministratorConsole/webapps/passwordchange \n",
+                                 "rm -rf /opt/informatica/logs/node01/services/AdministratorConsole/ \n",
+                                 "rm -rf   /opt/informatica/logs/node01/ \n",
+								 "scp -o StrictHostKeyChecking=no -o PasswordAuthentication=no /opt/informatica/services/shared/security/infa_truststore.jks root@",
+                                  {  
+                                    "Ref":"HadoopGatewayPublicDNSName"
+                                  },
+								 ":/opt/",
+								 "\n",
+                                 "/sbin/service infaservice start  \n",
+								 "sleep 180  \n",
+                                 
+								 
+								 "echo \"Creating users for EDC\"  \n",
+								 "/opt/informatica/isp/bin/infacmd.sh createUser -dn Domain -un Administrator -pd Administrator -nu ITQS-Steward -np ITQS-Steward -nf ITQS-Steward  \n",
+								 "/opt/informatica/isp/bin/infacmd.sh assignRoleTouser -dn Domain -un Administrator -pd Administrator -eu ITQS-Steward -rn Administrator -sn Domain  \n",                                 
+								 "/opt/informatica/isp/bin/infacmd.sh addUserToGroup -dn Domain -un Administrator -pd Administrator -eu ITQS-Steward -gn Administrator  \n", 
+								 "/opt/informatica/isp/bin/infacmd.sh createUser -dn Domain -un Administrator -pd Administrator -nu ITQS-Owner -np ITQS-Owner -nf ITQS-Owner  \n",
+								 "/opt/informatica/isp/bin/infacmd.sh assignRoleTouser -dn Domain -un Administrator -pd Administrator -eu ITQS-Owner -rn Administrator -sn Domain  \n",                                 
+								 "/opt/informatica/isp/bin/infacmd.sh addUserToGroup -dn Domain -un Administrator -pd Administrator -eu ITQS-Owner -gn Administrator \n",              
+								 				 
+								 								 
                                  "echo \"Creating Infa user\"  \n",
                                  "if [[ $administratorName == \"Administrator\" ]] && [[ $administratorPassword == \"Administrator\" ]] \n",
                                  "then\n",
@@ -1158,14 +1200,14 @@
                                  },
                                  "\n",
                                  "echo \"Creating the IHS \"  \n",
-                                 "/opt/informatica/isp/bin/infacmd.sh ihs createService -dn Domain -nn node01 -un $administratorName -pd $administratorPassword -sn IHS -p 9085 -hgh $IHSHOSTNAME -hgp 8080 -hn $IHSNODES -gu root  \n",
+                                "/opt/informatica/isp/bin/infacmd.sh ihs createService -dn Domain -nn node01 -un $administratorName -pd $administratorPassword -sn IHS -sp 9085 -tls true -kf /opt/informatica/tomcat/conf/Default.keystore -kp changeit -hgh $IHSHOSTNAME -hgp 8080 -hn $IHSNODES -gu root -dssl true -tf /opt/infa_truststore.jks -tp pass2038@infaSSL \n",
                                  "/opt/informatica/isp/bin/infacmd.sh assignLicense -dn Domain -un $administratorName -pd $administratorPassword -ln ${LICENSE_NAME} -sn IHS  \n",
                                  "/opt/informatica/isp/bin/infacmd.sh ihs updateServiceOptions -dn Domain -un $administratorName -pd $administratorPassword -sn IHS -o IcsCustomOptions.ihs.enable.memcheck=false  \n",
                                  "/opt/informatica/isp/bin/infacmd.sh ihs updateServiceOptions -dn Domain -un $administratorName -pd $administratorPassword -sn IHS -o IcsCustomOptions.ihs.enable.cpucheck=false  \n",
                                  "/opt/informatica/isp/bin/infacmd.sh ihs updateServiceOptions -dn Domain -un $administratorName -pd $administratorPassword -sn IHS -o IcsCustomOptions.ihs.enable.diskcheck=false  \n",
                                  "/opt/informatica/isp/bin/infacmd.sh ihs updateServiceOptions -dn Domain -un $administratorName -pd $administratorPassword -sn IHS -o IcsCustomOptions.ihs.ambari.testing=true  \n",
                                  "echo \"Creating the LDM \"  \n",
-                                 "/opt/informatica/isp/bin/infacmd.sh ldm createService -dn Domain  -nn node01 -un $administratorName -pd $administratorPassword -sn LDM -mrs MRS -mrsun $administratorName -mrspd $administratorPassword -p 8085 -tls false -ise false -ihsn IHS -isc false -cssl false  \n",
+                                 "/opt/informatica/isp/bin/infacmd.sh ldm createService -dn Domain  -nn node01 -un $administratorName -pd $administratorPassword -sn LDM -mrs MRS -mrsun $administratorName -mrspd $administratorPassword -sp 8085 -tls true -kf /opt/informatica/tomcat/conf/Default.keystore -kp changeit -ise false -ihsn IHS -isc false -cssl true  \n",
                                  "/opt/informatica/isp/bin/infacmd.sh assignlicense -dn Domain -un $administratorName -pd $administratorPassword -sn LDM -ln ${LICENSE_NAME}  \n",
                                  "/opt/informatica/isp/bin/infacmd.sh ldm updateServiceOptions -dn Domain -un $administratorName -pd $administratorPassword -sn LDM -o LdmCustomOptions.ldm.repo.content.create.timeout.millis=1200000  \n",
                                  "loadType=low",
@@ -1343,15 +1385,15 @@
                                     "Ref":"DBPassword"
                                  },
                                  "\n",
-                                 "curl -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\"  -X POST -d  '{\"resourceIdentifier\":{\"resourceName\":\"AWSQuickstartS3_ITQS\",\"description\":\" \",\"resourceTypeId\":\"amazons3\",\"resourceTypeName\":\"Amazon S3\",\"resourceTypeVersion\":\"\"},\"scannerConfigurations\":[{\"scanner\":{\"scannerId\":\"AmazonS3Scanner\",\"providerTypeId\":\"CORE\",\"providerTypeName\":\"Source Metadata\"},\"enabled\":true,\"configOptions\":[{\"optionId\":\"URI\",\"optionValues\":[\"'$bucketName'.s3.amazonaws.com\"]},{\"optionId\":\"SourceDirectory\",\"optionValues\":[\"/\"]},{\"optionId\":\"FileType\",\"optionValues\":[\"All\"]},{\"optionId\":\"IncludeUnsupportedTypes\",\"optionValues\":[false]},{\"optionId\":\"IncludeSubdirectory\",\"optionValues\":[false]},{\"optionId\":\"Memory\",\"optionValues\":[\"Low\"]},{\"optionId\":\"Bucket\",\"optionValues\":[\"'$bucketName'\"]},{\"optionId\":\"AWSAccessKeyID\",\"optionValues\":[\"'$accessKey'\"]},{\"optionId\":\"AWSSecretAccessKey\",\"optionValues\":[\"'$secretKey'\"]}]},{\"scanner\":{\"scannerId\":\"CompositeDomainScanner\",\"providerTypeId\":\"CompositeDomainDiscovery\",\"providerTypeName\":\"Composite Domain Discovery\"},\"enabled\":false,\"configOptions\":[{\"optionId\":\"SelectCompositeDataDomains\",\"optionValues\":[\"AllCompositeDataDomains\"]}]},{\"scanner\":{\"scannerId\":\"ProfileScanner\",\"providerTypeId\":\"Profiling\",\"providerTypeName\":\"Data Discovery\"},\"enabled\":false,\"configOptions\":[{\"optionId\":\"ProfilingRunOptions\",\"optionValues\":[\"ColumnProfiling\"]},{\"optionId\":\"SamplingOptions\",\"optionValues\":[\"FirstNRowsSampling\"]},{\"optionId\":\"runOnHadoop\",\"optionValues\":[\"Native\"]},{\"optionId\":\"RunSimilarityProfile\",\"optionValues\":[\"false\"]},{\"optionId\":\"securityDomain\",\"optionValues\":[\"Native\"]},{\"optionId\":\"Priority\",\"optionValues\":[\"low\"]},{\"optionId\":\"FirstNNumberOfSampleRows\",\"optionValues\":[10000]},{\"optionId\":\"ExcludeViews\",\"optionValues\":[false]},{\"optionId\":\"Incremental\",\"optionValues\":[false]},{\"optionId\":\"domainName\",\"optionValues\":[]},{\"optionId\":\"DomainDiscoveryType\",\"optionValues\":[]},{\"optionId\":\"SelectDataDomains\",\"optionValues\":[]},{\"optionId\":\"DataDomainConformanceOption\",\"optionValues\":[\"DataDomain\"]},{\"optionId\":\"SamplingOptions1\",\"optionValues\":[]},{\"optionId\":\"SimilarityDISConnectionOption\",\"optionValues\":[\"SameAsProfileConfiguration\"]}]}]}' http://$host:8085/access/1/catalog/resources",
+                                 "curl -k1 -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\"  -X POST -d  '{\"resourceIdentifier\":{\"resourceName\":\"AWSQuickstartS3_ITQS\",\"description\":\" \",\"resourceTypeId\":\"amazons3\",\"resourceTypeName\":\"Amazon S3\",\"resourceTypeVersion\":\"\"},\"scannerConfigurations\":[{\"scanner\":{\"scannerId\":\"AmazonS3Scanner\",\"providerTypeId\":\"CORE\",\"providerTypeName\":\"Source Metadata\"},\"enabled\":true,\"configOptions\":[{\"optionId\":\"URI\",\"optionValues\":[\"'$bucketName'.s3.amazonaws.com\"]},{\"optionId\":\"SourceDirectory\",\"optionValues\":[\"/\"]},{\"optionId\":\"FileType\",\"optionValues\":[\"All\"]},{\"optionId\":\"IncludeUnsupportedTypes\",\"optionValues\":[false]},{\"optionId\":\"IncludeSubdirectory\",\"optionValues\":[false]},{\"optionId\":\"Memory\",\"optionValues\":[\"Low\"]},{\"optionId\":\"Bucket\",\"optionValues\":[\"'$bucketName'\"]},{\"optionId\":\"AWSAccessKeyID\",\"optionValues\":[\"'$accessKey'\"]},{\"optionId\":\"AWSSecretAccessKey\",\"optionValues\":[\"'$secretKey'\"]}]},{\"scanner\":{\"scannerId\":\"CompositeDomainScanner\",\"providerTypeId\":\"CompositeDomainDiscovery\",\"providerTypeName\":\"Composite Domain Discovery\"},\"enabled\":false,\"configOptions\":[{\"optionId\":\"SelectCompositeDataDomains\",\"optionValues\":[\"AllCompositeDataDomains\"]}]},{\"scanner\":{\"scannerId\":\"ProfileScanner\",\"providerTypeId\":\"Profiling\",\"providerTypeName\":\"Data Discovery\"},\"enabled\":false,\"configOptions\":[{\"optionId\":\"ProfilingRunOptions\",\"optionValues\":[\"ColumnProfiling\"]},{\"optionId\":\"SamplingOptions\",\"optionValues\":[\"FirstNRowsSampling\"]},{\"optionId\":\"runOnHadoop\",\"optionValues\":[\"Native\"]},{\"optionId\":\"RunSimilarityProfile\",\"optionValues\":[\"false\"]},{\"optionId\":\"securityDomain\",\"optionValues\":[\"Native\"]},{\"optionId\":\"Priority\",\"optionValues\":[\"low\"]},{\"optionId\":\"FirstNNumberOfSampleRows\",\"optionValues\":[10000]},{\"optionId\":\"ExcludeViews\",\"optionValues\":[false]},{\"optionId\":\"Incremental\",\"optionValues\":[false]},{\"optionId\":\"domainName\",\"optionValues\":[]},{\"optionId\":\"DomainDiscoveryType\",\"optionValues\":[]},{\"optionId\":\"SelectDataDomains\",\"optionValues\":[]},{\"optionId\":\"DataDomainConformanceOption\",\"optionValues\":[\"DataDomain\"]},{\"optionId\":\"SamplingOptions1\",\"optionValues\":[]},{\"optionId\":\"SimilarityDISConnectionOption\",\"optionValues\":[\"SameAsProfileConfiguration\"]}]}]}' https://$host:8085/access/1/catalog/resources",
                                  "\n",
-                                 "curl -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\"  -X POST -d  '{\"resourceIdentifier\":{\"resourceName\":\"AWSQuickstartIICS_ITQS\",\"description\":\" \",\"resourceTypeId\":\"ICSScanner\",\"resourceTypeName\":\"Informatica Cloud Service\",\"resourceTypeVersion\":\"\"},\"scannerConfigurations\":[{\"scanner\":{\"scannerId\":\"ICSScanner\",\"providerTypeId\":\"CORE\",\"providerTypeName\":\"Metadata Load\"},\"enabled\":true,\"configOptions\":[{\"optionId\":\"saasURI\",\"optionValues\":[\"https://dm-'$pod'.informaticacloud.com/ma\"]},{\"optionId\":\"AutoAssignConnections\",\"optionValues\":[true]},{\"optionId\":\"username\",\"optionValues\":[\"'$icsUsername'\"]},{\"optionId\":\"DetailedLineage\",\"optionValues\":[true]},{\"optionId\":\"Memory\",\"optionValues\":[\"Low\"]},{\"optionId\":\"password\",\"optionValues\":[\"'$icsPassword'\"]}]}]}' http://$host:8085/access/1/catalog/resources",
+                                 "curl -k1 -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\"  -X POST -d  '{\"resourceIdentifier\":{\"resourceName\":\"AWSQuickstartIICS_ITQS\",\"description\":\" \",\"resourceTypeId\":\"ICSScanner\",\"resourceTypeName\":\"Informatica Cloud Service\",\"resourceTypeVersion\":\"\"},\"scannerConfigurations\":[{\"scanner\":{\"scannerId\":\"ICSScanner\",\"providerTypeId\":\"CORE\",\"providerTypeName\":\"Metadata Load\"},\"enabled\":true,\"configOptions\":[{\"optionId\":\"saasURI\",\"optionValues\":[\"https://dm-'$pod'.informaticacloud.com/ma\"]},{\"optionId\":\"AutoAssignConnections\",\"optionValues\":[true]},{\"optionId\":\"username\",\"optionValues\":[\"'$icsUsername'\"]},{\"optionId\":\"DetailedLineage\",\"optionValues\":[true]},{\"optionId\":\"Memory\",\"optionValues\":[\"Low\"]},{\"optionId\":\"password\",\"optionValues\":[\"'$icsPassword'\"]}]}]}' https://$host:8085/access/1/catalog/resources",
                                  "\n",
-                                 "curl -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\"  -X POST -d  '{\"resourceIdentifier\":{\"resourceName\":\"AWSQuickstartTableau_ITQS\",\"description\":\" \",\"resourceTypeId\":\"Tableau\",\"resourceTypeName\":\"Tableau Server\",\"resourceTypeVersion\":\"\"},\"scannerConfigurations\":[{\"scanner\":{\"scannerId\":\"TableauScanner\",\"providerTypeId\":\"CORE\",\"providerTypeName\":\"Source Metadata\"},\"enabled\":true,\"configOptions\":[{\"optionId\":\"Server\",\"optionValues\":[\"http://'$tableauIP':80\"]},{\"optionId\":\"Incremental import\",\"optionValues\":[true]},{\"optionId\":\"AutoAssignConnections\",\"optionValues\":[true]},{\"optionId\":\"User Name\",\"optionValues\":[\"'$tableauUserName'\"]},{\"optionId\":\"Group By\",\"optionValues\":[\"Project\"]},{\"optionId\":\"Memory\",\"optionValues\":[\"Low\"]},{\"optionId\":\"Password\",\"optionValues\":[\"'$tableauPassword'\"]}]}]}' http://$host:8085/access/1/catalog/resources",
+                                 "curl -k1 -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\"  -X POST -d  '{\"resourceIdentifier\":{\"resourceName\":\"AWSQuickstartTableau_ITQS\",\"description\":\" \",\"resourceTypeId\":\"Tableau\",\"resourceTypeName\":\"Tableau Server\",\"resourceTypeVersion\":\"\"},\"scannerConfigurations\":[{\"scanner\":{\"scannerId\":\"TableauScanner\",\"providerTypeId\":\"CORE\",\"providerTypeName\":\"Source Metadata\"},\"enabled\":true,\"configOptions\":[{\"optionId\":\"Server\",\"optionValues\":[\"http://'$tableauIP':80\"]},{\"optionId\":\"Incremental import\",\"optionValues\":[true]},{\"optionId\":\"AutoAssignConnections\",\"optionValues\":[true]},{\"optionId\":\"User Name\",\"optionValues\":[\"'$tableauUserName'\"]},{\"optionId\":\"Group By\",\"optionValues\":[\"Project\"]},{\"optionId\":\"Memory\",\"optionValues\":[\"Low\"]},{\"optionId\":\"Password\",\"optionValues\":[\"'$tableauPassword'\"]}]}]}' https://$host:8085/access/1/catalog/resources",
                                  "\n",
-                                 "curl -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\"  -X POST -d '{\"resourceIdentifier\":{\"resourceName\":\"AWSQuickstartRedshift_ITQS\",\"description\":\" \",\"resourceTypeId\":\"REDSHIFT\",\"resourceTypeName\":\"Amazon Redshift\",\"resourceTypeVersion\":\"\"},\"scannerConfigurations\":[{\"scanner\":{\"scannerId\":\"RedShiftScanner\",\"providerTypeId\":\"CORE\",\"providerTypeName\":\"Source Metadata\"},\"enabled\":true,\"configOptions\":[{\"optionId\":\"Host\",\"optionValues\":[\"'$redshiftHost'\"]},{\"optionId\":\"Port\",\"optionValues\":['$redshiftPort']},{\"optionId\":\"Database\",\"optionValues\":[\"'$redshiftDbName'\"]},{\"optionId\":\"User\",\"optionValues\":[\"'$redshiftUserName'\"]},{\"optionId\":\"Import system objects\",\"optionValues\":[false]},{\"optionId\":\"S3BucketName\",\"optionValues\":[\"'$bucketName'\"]},{\"optionId\":\"Memory\",\"optionValues\":[\"Low\"]},{\"optionId\":\"Password\",\"optionValues\":[\"'$redshiftPassword'\"]}]},{\"scanner\":{\"scannerId\":\"CompositeDomainScanner\",\"providerTypeId\":\"CompositeDomainDiscovery\",\"providerTypeName\":\"Composite Domain Discovery\"},\"enabled\":true,\"configOptions\":[{\"optionId\":\"SelectCompositeDataDomains\",\"optionValues\":[\"AllCompositeDataDomains\"]}]},{\"scanner\":{\"scannerId\":\"ProfileScanner\",\"providerTypeId\":\"Profiling\",\"providerTypeName\":\"Data Discovery\"},\"enabled\":false,\"configOptions\":[{\"optionId\":\"ProfilingRunOptions\",\"optionValues\":[\"ColumnProfiling\"]},{\"optionId\":\"SamplingOptions\",\"optionValues\":[\"FirstNRowsSampling\"]},{\"optionId\":\"runOnHadoop\",\"optionValues\":[\"Native\"]},{\"optionId\":\"RunSimilarityProfile\",\"optionValues\":[\"false\"]},{\"optionId\":\"securityDomain\",\"optionValues\":[\"Native\"]},{\"optionId\":\"Priority\",\"optionValues\":[\"low\"]},{\"optionId\":\"FirstNNumberOfSampleRows\",\"optionValues\":[10000]},{\"optionId\":\"ExcludeViews\",\"optionValues\":[false]},{\"optionId\":\"Incremental\",\"optionValues\":[false]}]}]}'  http://$host:8085/access/1/catalog/resources ",
+                                 "curl -k1 -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\"  -X POST -d '{\"resourceIdentifier\":{\"resourceName\":\"AWSQuickstartRedshift_ITQS\",\"description\":\" \",\"resourceTypeId\":\"REDSHIFT\",\"resourceTypeName\":\"Amazon Redshift\",\"resourceTypeVersion\":\"\"},\"scannerConfigurations\":[{\"scanner\":{\"scannerId\":\"RedShiftScanner\",\"providerTypeId\":\"CORE\",\"providerTypeName\":\"Source Metadata\"},\"enabled\":true,\"configOptions\":[{\"optionId\":\"Host\",\"optionValues\":[\"'$redshiftHost'\"]},{\"optionId\":\"Port\",\"optionValues\":['$redshiftPort']},{\"optionId\":\"Database\",\"optionValues\":[\"'$redshiftDbName'\"]},{\"optionId\":\"User\",\"optionValues\":[\"'$redshiftUserName'\"]},{\"optionId\":\"Import system objects\",\"optionValues\":[false]},{\"optionId\":\"S3BucketName\",\"optionValues\":[\"'$bucketName'\"]},{\"optionId\":\"Memory\",\"optionValues\":[\"Low\"]},{\"optionId\":\"Password\",\"optionValues\":[\"'$redshiftPassword'\"]}]},{\"scanner\":{\"scannerId\":\"CompositeDomainScanner\",\"providerTypeId\":\"CompositeDomainDiscovery\",\"providerTypeName\":\"Composite Domain Discovery\"},\"enabled\":true,\"configOptions\":[{\"optionId\":\"SelectCompositeDataDomains\",\"optionValues\":[\"AllCompositeDataDomains\"]}]},{\"scanner\":{\"scannerId\":\"ProfileScanner\",\"providerTypeId\":\"Profiling\",\"providerTypeName\":\"Data Discovery\"},\"enabled\":false,\"configOptions\":[{\"optionId\":\"ProfilingRunOptions\",\"optionValues\":[\"ColumnProfiling\"]},{\"optionId\":\"SamplingOptions\",\"optionValues\":[\"FirstNRowsSampling\"]},{\"optionId\":\"runOnHadoop\",\"optionValues\":[\"Native\"]},{\"optionId\":\"RunSimilarityProfile\",\"optionValues\":[\"false\"]},{\"optionId\":\"securityDomain\",\"optionValues\":[\"Native\"]},{\"optionId\":\"Priority\",\"optionValues\":[\"low\"]},{\"optionId\":\"FirstNNumberOfSampleRows\",\"optionValues\":[10000]},{\"optionId\":\"ExcludeViews\",\"optionValues\":[false]},{\"optionId\":\"Incremental\",\"optionValues\":[false]}]}]}'  https://$host:8085/access/1/catalog/resources ",
                                  "\n",
-                                 "curl -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\"  -X POST -d '{\"resourceIdentifier\":{\"resourceName\":\"AWSQuickstartOracle_ITQS\",\"description\":\" \",\"resourceTypeId\":\"Oracle\",\"resourceTypeName\":\"Oracle\",\"resourceTypeVersion\":\"\"},\"scannerConfigurations\":[{\"scanner\":{\"scannerId\":\"OracleScanner\",\"providerTypeId\":\"CORE\",\"providerTypeName\":\"Source Metadata\"},\"enabled\":true,\"configOptions\":[{\"optionId\":\"Host\",\"optionValues\":[\"'$rdsHostName'\"]},{\"optionId\":\"Port\",\"optionValues\":[1521]},{\"optionId\":\"Service\",\"optionValues\":[\"orcl\"]},{\"optionId\":\"User\",\"optionValues\":[\"'$rdsUserName'\"]},{\"optionId\":\"Import system objects\",\"optionValues\":[false]},{\"optionId\":\"Import stored procedures\",\"optionValues\":[true]},{\"optionId\":\"Import Private and Public Synonyms\",\"optionValues\":[true]},{\"optionId\":\"Memory\",\"optionValues\":[\"Low\"]},{\"optionId\":\"Schema\",\"optionValues\":[\"AWSQUICKSTART\"]},{\"optionId\":\"Password\",\"optionValues\":[\"'$rdsPassword'\"]}]},{\"scanner\":{\"scannerId\":\"CompositeDomainScanner\",\"providerTypeId\":\"CompositeDomainDiscovery\",\"providerTypeName\":\"Composite Domain Discovery\"},\"enabled\":true,\"configOptions\":[{\"optionId\":\"SelectCompositeDataDomains\",\"optionValues\":[\"AllCompositeDataDomains\"]}]},{\"scanner\":{\"scannerId\":\"ProfileScanner\",\"providerTypeId\":\"Profiling\",\"providerTypeName\":\"Data Discovery\"},\"enabled\":false,\"configOptions\":[{\"optionId\":\"ProfilingRunOptions\",\"optionValues\":[\"ColumnProfiling\"]},{\"optionId\":\"SamplingOptions\",\"optionValues\":[\"FirstNRowsSampling\"]},{\"optionId\":\"runOnHadoop\",\"optionValues\":[\"Native\"]},{\"optionId\":\"RunSimilarityProfile\",\"optionValues\":[\"false\"]},{\"optionId\":\"securityDomain\",\"optionValues\":[\"Native\"]},{\"optionId\":\"Priority\",\"optionValues\":[\"low\"]},{\"optionId\":\"FirstNNumberOfSampleRows\",\"optionValues\":[10000]},{\"optionId\":\"ExcludeViews\",\"optionValues\":[false]},{\"optionId\":\"Incremental\",\"optionValues\":[false]}]}]}'  http://$host:8085/access/1/catalog/resources ",
+                                 "curl -k1 -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\"  -X POST -d '{\"resourceIdentifier\":{\"resourceName\":\"AWSQuickstartOracle_ITQS\",\"description\":\" \",\"resourceTypeId\":\"Oracle\",\"resourceTypeName\":\"Oracle\",\"resourceTypeVersion\":\"\"},\"scannerConfigurations\":[{\"scanner\":{\"scannerId\":\"OracleScanner\",\"providerTypeId\":\"CORE\",\"providerTypeName\":\"Source Metadata\"},\"enabled\":true,\"configOptions\":[{\"optionId\":\"Host\",\"optionValues\":[\"'$rdsHostName'\"]},{\"optionId\":\"Port\",\"optionValues\":[1521]},{\"optionId\":\"Service\",\"optionValues\":[\"orcl\"]},{\"optionId\":\"User\",\"optionValues\":[\"'$rdsUserName'\"]},{\"optionId\":\"Import system objects\",\"optionValues\":[false]},{\"optionId\":\"Import stored procedures\",\"optionValues\":[true]},{\"optionId\":\"Import Private and Public Synonyms\",\"optionValues\":[true]},{\"optionId\":\"Memory\",\"optionValues\":[\"Low\"]},{\"optionId\":\"Schema\",\"optionValues\":[\"AWSQUICKSTART\"]},{\"optionId\":\"Password\",\"optionValues\":[\"'$rdsPassword'\"]}]},{\"scanner\":{\"scannerId\":\"CompositeDomainScanner\",\"providerTypeId\":\"CompositeDomainDiscovery\",\"providerTypeName\":\"Composite Domain Discovery\"},\"enabled\":true,\"configOptions\":[{\"optionId\":\"SelectCompositeDataDomains\",\"optionValues\":[\"AllCompositeDataDomains\"]}]},{\"scanner\":{\"scannerId\":\"ProfileScanner\",\"providerTypeId\":\"Profiling\",\"providerTypeName\":\"Data Discovery\"},\"enabled\":false,\"configOptions\":[{\"optionId\":\"ProfilingRunOptions\",\"optionValues\":[\"ColumnProfiling\"]},{\"optionId\":\"SamplingOptions\",\"optionValues\":[\"FirstNRowsSampling\"]},{\"optionId\":\"runOnHadoop\",\"optionValues\":[\"Native\"]},{\"optionId\":\"RunSimilarityProfile\",\"optionValues\":[\"false\"]},{\"optionId\":\"securityDomain\",\"optionValues\":[\"Native\"]},{\"optionId\":\"Priority\",\"optionValues\":[\"low\"]},{\"optionId\":\"FirstNNumberOfSampleRows\",\"optionValues\":[10000]},{\"optionId\":\"ExcludeViews\",\"optionValues\":[false]},{\"optionId\":\"Incremental\",\"optionValues\":[false]}]}]}'  https://$host:8085/access/1/catalog/resources ",
                                  "\n"
                               ]
                            ]
@@ -1387,15 +1429,21 @@
                                     "Ref":"InformaticaAdminPassword"
                                  },
 								 "\n",
-								 " curl -u $administratorName:$administratorPassword  -H \"Content-Type: application/json\" -H \"Accept: application/json\" -X POST   http://infadomain.infa.com:8085/access/1/catalog/resources/AWSQuickstartS3_ITQS/execute",
+								 " curl -k1 -u $administratorName:$administratorPassword  -H \"Content-Type: application/json\" -H \"Accept: application/json\" -X POST   https://infadomain.infa.com:8085/access/1/catalog/resources/AWSQuickstartS3_ITQS/execute",
 								 "\n",
-								 "curl -u $administratorName:$administratorPassword  -H \"Content-Type: application/json\" -H \"Accept: application/json\" -X POST http://infadomain.infa.com:8085/access/1/catalog/resources/AWSQuickstartRedshift_ITQS/execute",
+								 "curl -k1 -u $administratorName:$administratorPassword  -H \"Content-Type: application/json\" -H \"Accept: application/json\" -X POST https://infadomain.infa.com:8085/access/1/catalog/resources/AWSQuickstartRedshift_ITQS/execute",
 								 "\n",
-								 "curl -u $administratorName:$administratorPassword  -H \"Content-Type: application/json\" -H \"Accept: application/json\" -X POST http://infadomain.infa.com:8085/access/1/catalog/resources/AWSQuickstartOracle_ITQS/execute",
+								 "curl -k1 -u $administratorName:$administratorPassword  -H \"Content-Type: application/json\" -H \"Accept: application/json\" -X POST https://infadomain.infa.com:8085/access/1/catalog/resources/AWSQuickstartOracle_ITQS/execute",
 								 "\n",
-								 "curl -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\" -X POST http://infadomain.infa.com:8085/access/1/catalog/resources/AWSQuickstartTableau_ITQS/execute",
+								 "curl -k1 -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\" -X POST https://infadomain.infa.com:8085/access/1/catalog/resources/AWSQuickstartTableau_ITQS/execute",
 								 "\n",
-								 "curl -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\" -X POST http://infadomain.infa.com:8085/access/1/catalog/resources/AWSQuickstartIICS_ITQS/execute",
+								 "curl -k1 -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\" -X POST https://infadomain.infa.com:8085/access/1/catalog/resources/AWSQuickstartIICS_ITQS/execute",
+								 "\n",
+								 "curl -k1 -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\" -X POST https://infadomain.infa.com:8085/access/1/catalog/resources/DomainUsers/execute",
+								 "\n",
+								 "curl -k1 -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\" -X POST https://infadomain.infa.com:8085/access/1/catalog/resources/SimilarityDiscovery/execute",
+								 "\n",
+							     "curl -k1 -u $administratorName:$administratorPassword -H \"Content-Type: application/json\" -H \"Accept: application/json\" -X POST https://infadomain.infa.com:8085/access/1/catalog/resources/SystemLocations/execute",
 								 "\n",
 								 "sleep 15m",
 								 "\n"
@@ -1664,14 +1712,14 @@
             "Fn::Join":[  
                "",
                [  
-                  "http://",
+                  "https://",
                   {  
                      "Fn::GetAtt":[  
                         "AdministrationServer",
                         "PublicDnsName"
                      ]
                   },
-                  ":6008"
+                  ":8443"
                ]
             ]
          }
@@ -1682,7 +1730,7 @@
             "Fn::Join":[  
                "",
                [  
-                  "http://",
+                  "https://",
                   {  
                      "Fn::GetAtt":[  
                         "AdministrationServer",
@@ -1701,7 +1749,7 @@
             "Fn::Join":[  
                "",
                [  
-                  "http://",
+                  "https://",
                   {  
                      "Fn::GetAtt":[  
                         "AdministrationServer",
@@ -1720,7 +1768,7 @@
             "Fn::Join":[  
                "",
                [  
-                  "http://",
+                  "https://",
                   {  
                      "Ref":"HadoopGatewayPublicDNSName"
                   },

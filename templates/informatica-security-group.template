@@ -521,7 +521,7 @@
                {  
                   "IpProtocol":"tcp",
                   "FromPort":"6005",
-                  "ToPort":"6005",
+                  "ToPort":"6010",
                   "CidrIp":{  
                      "Ref":"RemoteAccessCIDR"
                   },
@@ -529,17 +529,8 @@
                },
                {  
                   "IpProtocol":"tcp",
-                  "FromPort":"6006",
-                  "ToPort":"6006",
-                  "CidrIp":{  
-                     "Ref":"RemoteAccessCIDR"
-                  },
-				  "Description":"Rule to open port for Informatica domain for the IP range user has provided"
-               },
-               {  
-                  "IpProtocol":"tcp",
-                  "FromPort":"6008",
-                  "ToPort":"6008",
+                  "FromPort":"8443",
+                  "ToPort":"8443",
                   "CidrIp":{  
                      "Ref":"RemoteAccessCIDR"
                   },
@@ -646,6 +637,15 @@
                      "Ref":"RemoteAccessCIDR"
                   },
 				  "Description":"Rule to open port to Access the Ambari Server"
+               },
+			   {  
+                  "IpProtocol":"tcp",
+                  "FromPort":"8443",
+                  "ToPort":"8443",
+                  "CidrIp":{  
+                     "Ref":"RemoteAccessCIDR"
+                  },
+				  "Description":"Rule to open port for informatica domain for the IP range user has provided"
                },
                {  
                   "IpProtocol":"tcp",

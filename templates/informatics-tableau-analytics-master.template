@@ -694,7 +694,7 @@
                         "Ref": "QSS3BucketName"
                     },
                     "QSS3KeyPrefix": {
-                        "Fn::Sub": "${QSS3KeyPrefix}submodules/quickstart-microsoft-gateway/"
+                        "Fn::Sub": "${QSS3KeyPrefix}submodules/quickstart-microsoft-rdgateway/"
                     },
                     "RDGWInstanceType": "t2.large",
                     "RDGWCIDR": {

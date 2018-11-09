@@ -6,6 +6,6 @@ global:
     - us-west-2
   reporting: true
 tests:
-  default:
+  infa-tableau:
     parameter_input: taskcat-params.json
     template_file: tableau-awsdata-master.template

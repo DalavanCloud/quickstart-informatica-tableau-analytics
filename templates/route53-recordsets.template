@@ -10,11 +10,7 @@
          "Description":"Root Stack Name",
          "Type":"String"
       },
-      "RDGWElasticIP":{  
-         "Description":"Remote Desktop Gateway Elastic IP Address",
-         "Type":"String"
-      },
-      "TableauServerPublicDnsName":{  
+      "TableauServerPublicDnsName":{
          "Description":"Tableau Server Public DNS Name",
          "Type":"String"
       },
@@ -47,37 +43,7 @@
          "Type":"String"
       }
    },
-   "Resources":{  
-      "RDGWPublicRecordSet":{  
-         "Type":"AWS::Route53::RecordSet",
-         "Properties":{  
-            "Comment":"Convenience DNS Entry for RDGW",
-            "HostedZoneName":{  
-               "Ref":"HostedZoneName"
-            },
-            "Name":{  
-               "Fn::Join":[  
-                  ".",
-                  [  
-                     "rdgw",
-                     {  
-                        "Ref":"RootStackName"
-                     },
-                     {  
-                        "Ref":"HostedZoneName"
-                     }
-                  ]
-               ]
-            },
-            "ResourceRecords":[  
-               {  
-                  "Ref":"RDGWElasticIP"
-               }
-            ],
-            "TTL":"300",
-            "Type":"A"
-         }
-      },
+   "Resources":{
       "IHSPublicRecordSet":{  
          "Type":"AWS::Route53::RecordSet",
          "Properties":{  
@@ -320,13 +286,7 @@
       }
    },
    "Outputs":{  
-      "RDGWPublicName":{  
-         "Description":"Convenient Name for RDGW Public Access",
-         "Value":{  
-            "Ref":"RDGWPublicRecordSet"
-         }
-      },
-      "TableauServerPublicName":{  
+      "TableauServerPublicName":{
          "Description":"Convenient Name for Tableau Server Public Access",
          "Value":{  
             "Ref":"TableauServerPublicRecordSet"

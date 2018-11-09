@@ -25,7 +25,6 @@
                         "PrivateSubnet2ID",
                         "PublicSubnet1ID",
                         "HostedZoneName",
-                        "RemoteDesktopGatewayElasticIP",
                         "RemoteAccessCIDR"
                     ]
                 },
@@ -130,9 +129,6 @@
                 },
                 "QSS3KeyPrefix": {
                     "default": "Quick Start S3 Key Prefix"
-                },
-                "RemoteDesktopGatewayElasticIP": {
-                    "default": "RDGW Elastic IP*"
                 },
                 "RedshiftDatabaseName": {
                     "default": "Redshift Database Name*"
@@ -245,11 +241,6 @@
         "HostedZoneName": {
             "Default": "<NONE>",
             "Description": "Name of Hosted Zone within which the Quick Start will create convenient DNS entries for AWS Resources created by the Quick Start.  If you do not need to create DNS entries or are not using AWS Route53 for DNS, enter '<NONE>', otherwise enter the Hosted Zone name including the trailing period, for example 'dev.example.com.'.",
-            "Type": "String"
-        },
-        "RemoteDesktopGatewayElasticIP": {
-            "Default": "169.254.169.254",
-            "Description": "Public IP of Remote Desktop Gateway for use in creating convenience DNS entries for AWS Resources created by the Quick Start.  If you have not specified a name in the Hosted Zone Name parameter, this parameter will not be used and can remain set to its default.",
             "Type": "String"
         },
         "RedshiftHost": {
@@ -1100,9 +1091,6 @@
                     "HostedZoneName": {
                         "Ref": "HostedZoneName"
                     },
-                    "RDGWElasticIP": {
-                        "Ref": "RemoteDesktopGatewayElasticIP"
-                    },
                     "TableauServerPublicDnsName": {
                         "Fn::GetAtt": [
                             "TableauServerStack",
@@ -1190,23 +1178,6 @@
                         },
                         "/"
                     ]
-                ]
-            }
-        },
-        "RDGWPublicName": {
-            "Description": "Convenient Name for RDGW Public Access",
-            "Value": {
-                "Fn::If": [
-                    "HostedZoneIsSpecifiedCondition",
-                    {
-                        "Fn::GetAtt": [
-                            "DnsRecordSetStack",
-                            "Outputs.RDGWPublicName"
-                        ]
-                    },
-                    {
-                        "Ref": "RemoteDesktopGatewayElasticIP"
-                    }
                 ]
             }
         },

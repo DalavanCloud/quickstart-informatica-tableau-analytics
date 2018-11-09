@@ -764,12 +764,6 @@
                     "QSS3KeyPrefix": {
                         "Ref": "QSS3KeyPrefix"
                     },
-                    "RemoteDesktopGatewayElasticIP": {
-                        "Fn::GetAtt": [
-                            "RDGWStack",
-                            "Outputs.EIP1"
-                        ]
-                    },
                     "RedshiftDatabaseName": {
                         "Ref": "RedshiftDatabaseName"
                     },
@@ -872,15 +866,6 @@
                 "Fn::GetAtt": [
                     "TableauAwsdataStack",
                     "Outputs.EDCAdminUrl"
-                ]
-            }
-        },
-        "RDGWPublicName": {
-            "Description": "Convenient Name for RDGW Public Access",
-            "Value": {
-                "Fn::GetAtt": [
-                    "TableauAwsdataStack",
-                    "Outputs.RDGWPublicName"
                 ]
             }
         },

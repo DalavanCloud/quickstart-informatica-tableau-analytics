@@ -1,0 +1,110 @@
+[
+    {
+        "ParameterKey": "AvailabilityZones",
+        "ParameterValue": "$[alfred_getaz_2]"
+    },
+    {
+        "ParameterKey": "ConfirmInformaticaAdminPassword",
+        "ParameterValue": "override-me"
+    },
+    {
+        "ParameterKey": "ConfirmRDSInstancePassword",
+        "ParameterValue": "override-me"
+    },
+    {
+        "ParameterKey": "ConfirmRedshiftPassword",
+        "ParameterValue": "override-me"
+    },
+    {
+        "ParameterKey": "DomainDNSName",
+        "ParameterValue": "example.com"
+    },
+    {
+        "ParameterKey": "EmailID",
+        "ParameterValue": "override-me"
+    },
+    {
+        "ParameterKey": "HostedZoneName",
+        "ParameterValue": "<NONE>"
+    },
+    {
+        "ParameterKey": "IICSPassword",
+        "ParameterValue": "override-me"
+    },
+    {
+        "ParameterKey": "IICSUsername",
+        "ParameterValue": "override-me"
+    },
+    {
+        "ParameterKey": "InformaticaAdminPassword",
+        "ParameterValue": "override-me"
+    },
+    {
+        "ParameterKey": "InformaticaAdminUsername",
+        "ParameterValue": "Administrator"
+    },
+    {
+        "ParameterKey": "KeyPairName",
+        "ParameterValue": "$[alfred_getkeypair]"
+    },
+    {
+        "ParameterKey": "QSS3BucketName",
+        "ParameterValue": "$[taskcat_autobucket]"
+    },
+    {
+        "ParameterKey": "QSS3KeyPrefix",
+        "ParameterValue": "quickstart-informatica-tableau-analytics/"
+    },
+    {
+        "ParameterKey": "RDSInstancePassword",
+        "ParameterValue": "override-me"
+    },
+    {
+        "ParameterKey": "RedshiftDatabaseName",
+        "ParameterValue": "quickstart"
+    },
+    {
+        "ParameterKey": "RedshiftPassword",
+        "ParameterValue": "override-me"
+    },
+    {
+        "ParameterKey": "RedshiftUsername",
+        "ParameterValue": "redshift"
+    },
+    {
+        "ParameterKey": "RemoteAccessCIDR",
+        "ParameterValue": "10.0.0.0/16"
+    },
+    {
+        "ParameterKey": "RemoteDesktopGatewayAdminPassword",
+        "ParameterValue": "override-me"
+    },
+    {
+        "ParameterKey": "RemoteDesktopGatewayAdminUser",
+        "ParameterValue": "admin"
+    },
+    {
+        "ParameterKey": "TableauManagerPassword",
+        "ParameterValue": "override-me"
+    },
+    {
+        "ParameterKey": "TableauManagerUsername",
+        "ParameterValue": "admin"
+    },
+    {
+        "ParameterKey": "TableauServerAdminPassword",
+        "ParameterValue": "override-me"
+    },
+    {
+        "ParameterKey": "TableauServerAdminUser",
+        "ParameterValue": "admin"
+    },
+    {
+        "ParameterKey": "TableauServerLicenseKey",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "VPCDefinition",
+        "ParameterValue": "QuickstartDefault"
+    }
+]

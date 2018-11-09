@@ -19,9 +19,6 @@ global:
   reporting: true
  
 tests:
-  quickstart-informatica-tableau-analyticst1:
-    parameter_input: quickstart-informatica-tableau-analytics-example-params1.json
-    template_file: quickstart-informatica-tableau-analytics-example1.template
-  quickstart-informatica-tableau-analyticst2:
-    parameter_input: quickstart-informatica-tableau-analytics-example-params2.json
-    template_file: quickstart-informatica-tableau-analytics-example2.template
+  default:
+    parameter_input: taskcat-params.json
+    template_file: tableau-awsdata-master.template

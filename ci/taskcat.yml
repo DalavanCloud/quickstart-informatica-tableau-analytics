@@ -1,0 +1,11 @@
+global:
+  marketplace-ami: false
+  owner: sangra@informatica.com
+  qsname: quickstart-informatica-tableau-analytics
+  regions:
+    - us-west-2
+  reporting: true
+tests:
+  default:
+    parameter_input: taskcat-params.json
+    template_file: tableau-awsdata-master.template

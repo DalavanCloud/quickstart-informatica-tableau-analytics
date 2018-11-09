@@ -97,85 +97,85 @@
             ],
             "ParameterLabels": {
                 "AvailabilityZones": {
-                    "default": "Availability Zones*"
+                    "default": "Availability Zones"
                 },
                 "TableauServerAdminUser": {
-                    "default": "Tableau Server Administrator Username*"
+                    "default": "Tableau Server administrator username"
                 },
                 "TableauServerAdminPassword": {
-                    "default": "Tableau Server Administrator Password*"
+                    "default": "Tableau Server administrator password"
                 },
                 "EmailID": {
-                    "default": "Work Email*"
+                    "default": "Work email"
                 },
                 "TableauManagerUsername": {
-                    "default": "Tableau Services Manager (TSM) Administrator Username*"
+                    "default": "Tableau Services Manager (TSM) administrator username"
                 },
                 "TableauManagerPassword": {
-                    "default": "Tableau Services Manager (TSM) Administrator Password*"
+                    "default": "Tableau Services Manager (TSM) administrator password"
                 },
                 "DomainDNSName": {
-                    "default": "Domain DNS Name*"
+                    "default": "Domain DNS name"
                 },
                 "HostedZoneName": {
-                    "default": "Hosted Zone Name"
+                    "default": "Hosted Zone name"
                 },
                 "KeyPairName": {
-                    "default": "Key pair name*"
+                    "default": "Key pair name"
                 },
                 "QSS3BucketName": {
-                    "default": "Quick Start S3 Bucket Name*"
+                    "default": "Quick Start S3 bucket name"
                 },
                 "QSS3KeyPrefix": {
-                    "default": "Quick Start S3 Key Prefix"
+                    "default": "Quick Start S3 key prefix"
                 },
                 "RemoteDesktopGatewayAdminPassword": {
-                    "default": "Remote Desktop Gateway Admin Password*"
+                    "default": "Remote Desktop Gateway admin password"
                 },
                 "RemoteDesktopGatewayAdminUser": {
-                    "default": "Remote Desktop Gateway Admin Username*"
+                    "default": "Remote Desktop Gateway admin username"
                 },
                 "RedshiftDatabaseName": {
-                    "default": "Redshift Database Name*"
+                    "default": "Redshift database name"
                 },
                 "RedshiftPassword": {
-                    "default": "Redshift Password*"
+                    "default": "Redshift password"
                 },
                 "ConfirmRedshiftPassword": {
-                    "default": "Confirm Redshift Password*"
+                    "default": "Confirm Redshift password"
                 },
                 "RedshiftUsername": {
-                    "default": "Redshift Username*"
+                    "default": "Redshift username"
                 },
                 "TableauServerLicenseKey": {
-                    "default": "Tableau Server License Key"
+                    "default": "Tableau Server license key"
                 },
                 "VPCDefinition": {
-                    "default": "VPC Definition*"
+                    "default": "VPC definition"
                 },
                 "IICSUsername": {
-                    "default": "IICS Username*"
+                    "default": "IICS username"
                 },
                 "IICSPassword": {
-                    "default": "IICS Password*"
+                    "default": "IICS password"
                 },
                 "ConfirmRDSInstancePassword": {
-                    "default": "Confirm RDS Instance Password*"
+                    "default": "Confirm RDS instance password"
                 },
                 "RDSInstancePassword": {
-                    "default": "RDS Instance Password*"
+                    "default": "RDS instance password"
                 },
                 "InformaticaAdminUsername": {
-                    "default": "Informatica Administrator Username*"
+                    "default": "Informatica administrator username"
                 },
                 "InformaticaAdminPassword": {
-                    "default": "Informatica Administrator Password*"
+                    "default": "Informatica administrator password"
                 },
                 "ConfirmInformaticaAdminPassword": {
-                    "default": "Confirm Informatica Administrator Password*"
+                    "default": "Confirm Informatica administrator password"
                 },
                 "RemoteAccessCIDR": {
-                    "default": "Remote Access CIDR*"
+                    "default": "Remote Access CIDR"
                 }
             }
         }
@@ -183,7 +183,7 @@
     "Parameters": {
         "VPCDefinition": {
             "Default": "QuickstartDefault",
-            "Description": "VPC Definition name from Map maintained in this Quick Start's master template.  You can support multiple VPC Definitions by extending this Map and choosing the appropriate name.If you do not need to change the VPC Definition, simply choose the default.",
+            "Description": "VPC Definition name from Map maintained in this Quick Start's master template. You can support multiple VPC Definitions by extending this Map and choosing the appropriate name. If you do not need to change the VPC Definition, choose the default.",
             "Type": "String",
             "MinLength": "1",
             "ConstraintDescription": "Mandatory field"
@@ -199,11 +199,11 @@
         },
         "HostedZoneName": {
             "Default": "<NONE>",
-            "Description": "Name of Hosted Zone within which the Quick Start will create convenient DNS entries for AWS Resources created by the Quick Start.  If you do not need to create DNS entries or are not using AWS Route53 for DNS, enter '<NONE>', otherwise enter the Hosted Zone name including the trailing period, for example 'dev.example.com.'.",
+            "Description": "Name of Hosted Zone within which the Quick Start will create convenient DNS entries for AWS Resources created by the Quick Start. If you do not need to create DNS entries or are not using AWS Route53 for DNS, leave the default value '<NONE>', otherwise enter the Hosted Zone name including the trailing period, for example 'dev.example.com.'.",
             "Type": "String"
         },
         "AvailabilityZones": {
-            "Description": "List of Availability Zones to use for the subnets in the VPC. Note: The logical order is preserved.Please provide atleast 2 availability zones.",
+            "Description": "List of Availability Zones to use for the subnets in the VPC. Note: The logical order is preserved. Please provide atleast 2 availability zones.",
             "Type": "List<AWS::EC2::AvailabilityZone::Name>"
         },
         "RemoteAccessCIDR": {
@@ -224,33 +224,33 @@
         "RemoteDesktopGatewayAdminUser": {
             "AllowedPattern": "[a-zA-Z0-9]*",
             "Default": "admin",
-            "Description": "User name for the new local administrator account",
+            "Description": "User name for the new local administrator account.",
             "MaxLength": "25",
             "MinLength": "5",
             "Type": "String"
         },
         "IICSUsername": {
-            "Description": "Informatica Intelligent Cloud Services user name",
+            "Description": "Informatica Intelligent Cloud Services user name.",
             "Type": "String",
             "MinLength": "2"
         },
         "IICSPassword": {
             "AllowedPattern": "[a-zA-Z0-9~`!#$%^&*()-_+={}|;:,.<>\\[\\]]*",
             "ConstraintDescription": "Between 8 and 64 chars in length; must contain at least one uppercase letter, one lowercase letter, and one number; can use any printable ASCII character (ASCII code 33 to 126) except ' (single quote), \" (double quote), \\, /, @, or space.",
-            "Description": "The password associated with the Informatica Intelligent Cloud Services user name. ",
+            "Description": "The password associated with the Informatica Intelligent Cloud Services user name.",
             "MaxLength": "64",
             "MinLength": "8",
             "NoEcho": "true",
             "Type": "String"
         },
         "EmailID": {
-            "Description": "Enter the e-mail address used for IICS registration.It is also used for Tableau trial account.",
+            "Description": "Enter the e-mail address used for IICS registration. It is also used for Tableau trial account.",
             "Type": "String",
             "AllowedPattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
             "ConstraintDescription": "email can have only one @. Allowed alphanumeric characters, underscore, period, hyphen and 2-5 character as domain extension"
         },
         "TableauServerAdminPassword": {
-            "Description": "The password for the initial Admin user for Tableau server",
+            "Description": "The password for the initial Admin user for Tableau server.",
             "NoEcho": "true",
             "Type": "String",
             "MinLength": "1",
@@ -263,7 +263,7 @@
             "MaxLength": "20",
             "Type": "String",
             "AllowedPattern": "^([a-zA-Z][a-z0-9A-Z_]{4,20})$",
-            "ConstraintDescription": "Only alphanumeric characters and underscore are allowed. Should begin with an alphabet. The value must be 5 – 20 characters in length"
+            "ConstraintDescription": "Only alphanumeric characters and underscore are allowed. Should begin with an alphabet. The value must be 5 – 20 characters in length."
         },
         "TableauManagerUsername": {
             "Description": "Tableau Services Manager (TSM) administrator username (cannot be Administrator).Only alphanumeric characters and underscore are allowed. Should begin with an alphabet. The value must be 3-30 characters in length.",
@@ -275,7 +275,7 @@
             "ConstraintDescription": "Only alphanumeric characters and underscore are allowed. Should begin with an alphabet. The value must be 3-30 characters in length."
         },
         "TableauManagerPassword": {
-            "Description": "Tableau Services Manager (TSM) administrator password. Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) are not allowed",
+            "Description": "Tableau Services Manager (TSM) administrator password. Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) are not allowed.",
             "Type": "String",
             "NoEcho": "true",
             "AllowedPattern": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w])(?!.*[\"$]).{8,120}$",
@@ -285,20 +285,20 @@
         },
         "TableauServerLicenseKey": {
             "Default": "",
-            "Description": "License Key (leave blank for trial)",
+            "Description": "License Key. Leave blank for trial.",
             "Type": "String"
         },
         "RedshiftDatabaseName": {
             "AllowedPattern": "([a-z]|[0-9])+",
             "ConstraintDescription": "must contain a-z or 0-9 only.",
             "Default": "quickstart",
-            "Description": "The name of the database to be created in the Redshift cluster for storing visualization data.Please provide the valid database name if you are using an existing cluster for visualization data.The name must contain a-z or 0-9 only.",
+            "Description": "The name of the database to be created in the Redshift cluster for storing visualization data. Please provide the valid database name if you are using an existing cluster for visualization data. The name must contain only a-z or 0-9.",
             "Type": "String"
         },
         "RedshiftPassword": {
             "AllowedPattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d!#$%&\\(\\)*+,-.;<=>?\\[\\]^_`{|}~]{8,64}$",
             "ConstraintDescription": "Between 8 and 64 chars in length; must contain at least one uppercase letter, one lowercase letter, and one number; can use any printable ASCII character (ASCII code 33 to 126) except ' (single quote), \" (double quote), \\, /, @, or space.",
-            "Description": "The password associated with the master user account for the Redshift cluster that is being created.It should be between 8 and 64 chars in length; must contain at least one uppercase letter, one lowercase letter, and one number",
+            "Description": "The password associated with the master user account for the Redshift cluster that is being created. It should be between 8 and 64 chars in length; must contain at least one uppercase letter, one lowercase letter, and one number.",
             "MaxLength": "64",
             "MinLength": "8",
             "NoEcho": "true",
@@ -307,7 +307,7 @@
         "ConfirmRedshiftPassword": {
             "AllowedPattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d!#$%&\\(\\)*+,-.;<=>?\\[\\]^_`{|}~]{8,64}$",
             "ConstraintDescription": "Between 8 and 64 chars in length; must contain at least one uppercase letter, one lowercase letter, and one number; can use any printable ASCII character (ASCII code 33 to 126) except ' (single quote), \" (double quote), \\, /, @, or space.",
-            "Description": "The password associated with the master user account for the Redshift cluster that is being created.It should be between 8 and 64 chars in length; must contain at least one uppercase letter, one lowercase letter, and one number.",
+            "Description": "Confirm the password associated with the master user account for the Redshift cluster that is being created. It must match the value provided in RedshiftPassword field.",
             "MaxLength": "64",
             "MinLength": "8",
             "NoEcho": "true",
@@ -317,11 +317,11 @@
             "AllowedPattern": "([a-z])([a-z]|[0-9])*",
             "ConstraintDescription": "must start with a-z and contain only a-z or 0-9.",
             "Default": "redshift",
-            "Description": "The user name associated with the master user account for the Redshift cluster that is being created.It must start with a-z and contain only a-z or 0-9.",
+            "Description": "The user name associated with the master user account for the Redshift cluster that is being created. It must start with a-z and contain only a-z or 0-9.",
             "Type": "String"
         },
         "RDSInstancePassword": {
-            "Description": "Password for the database instance associated with Informatica services and Tableau Server tasks.It must contain between 8 to 30 printable ASCII characters (excluding /,\", and @).",
+            "Description": "Password for the database instance associated with Informatica services and Tableau Server tasks. It must contain between 8 to 30 printable ASCII characters (excluding /,\", and @).",
             "Type": "String",
             "NoEcho": "True",
             "MinLength": "8",
@@ -330,7 +330,7 @@
             "ConstraintDescription": "It must contain between 8 to 30 printable ASCII characters (excluding /,\", and @)."
         },
         "ConfirmRDSInstancePassword": {
-            "Description": "Password for the database instance associated with Informatica services and Tableau Server tasks.It must contain between 8 to 30 printable ASCII characters (excluding /,\", and @).",
+            "Description": "Confirm password for the database instance associated with Informatica services and Tableau Server tasks. It must match the value provided in RDSInstancePassword field.",
             "Type": "String",
             "NoEcho": "True",
             "MinLength": "8",
@@ -356,7 +356,7 @@
             "ConstraintDescription": "Password must be between 5 to 64 characters and start with a character. Only alphanumeric characters and underscore are allowed."
         },
         "ConfirmInformaticaAdminPassword": {
-            "Description": "Password to access Informatica Administrator.User name must be between 5 to 64 characters and start with a character. Only alphanumeric characters and underscore are allowed.",
+            "Description": "Confirm Password to access Informatica Administrator. It must match the value provided in InformaticaAdminPassword field.",
             "Type": "String",
             "NoEcho": "True",
             "MinLength": "5",
@@ -365,7 +365,7 @@
             "ConstraintDescription": "Password must be between 5 to 64 characters and start with a character. Only alphanumeric characters and underscore are allowed."
         },
         "KeyPairName": {
-            "Description": "Amazon EC2 Key Pair",
+            "Description": "The name of an existing public/private key pair, which allows you to securely connect to your instance after it launches.",
             "Type": "AWS::EC2::KeyPair::KeyName",
             "MinLength": "1",
             "ConstraintDescription": "Specifying EC2 keypair is mandatory"
@@ -373,14 +373,14 @@
         "QSS3BucketName": {
             "AllowedPattern": "(?=^.{3,63}$)(?!^(\\d+\\.)+\\d+$)(^([a-z0-9]|[a-z0-9][a-z0-9\\-]*[a-z0-9])$)",
             "ConstraintDescription": "Quick Start bucket name can include numbers, lowercase letters and hyphens (-). It cannot start or end with a hyphen (-).",
-            "Default": "aws-quickstart-informatica-tableau",
+            "Default": "aws-quickstart",
             "Description": "S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters and hyphens (-). It cannot start or end with a hyphen (-).",
             "Type": "String"
         },
         "QSS3KeyPrefix": {
             "AllowedPattern": "^[0-9a-z-/]*$",
             "ConstraintDescription": "Quick Start key prefix can include numbers, lowercase letters, hyphens (-), and forward slash (/).",
-            "Default": "",
+            "Default": "quickstart-informatica-tableau-analytics/",
             "Description": "S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).",
             "Type": "String"
         }
@@ -399,7 +399,7 @@
                             }
                         ]
                     },
-                    "AssertDescription": "Passwords do not match"
+                    "AssertDescription": "Redshift passwords do not match"
                 }
             ]
         },
@@ -416,7 +416,7 @@
                             }
                         ]
                     },
-                    "AssertDescription": "Passwords do not match"
+                    "AssertDescription": "RDS passwords do not match"
                 }
             ]
         },
@@ -433,7 +433,7 @@
                             }
                         ]
                     },
-                    "AssertDescription": "Passwords do not match"
+                    "AssertDescription": "Informatica passwords do not match"
                 }
             ]
         }

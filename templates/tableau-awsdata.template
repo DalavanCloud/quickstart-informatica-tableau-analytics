@@ -92,118 +92,118 @@
             ],
             "ParameterLabels": {
                 "RedshiftHost": {
-                    "default": "Amazon Redshift Host (optional)"
+                    "default": "Amazon Redshift host"
                 },
                 "TableauServerAdminUser": {
-                    "default": "Tableau Server Administrator Username*"
+                    "default": "Tableau Server administrator username"
                 },
                 "TableauServerAdminPassword": {
-                    "default": "Tableau Server Administrator Password*"
+                    "default": "Tableau Server administrator password"
                 },
                 "EmailID": {
-                    "default": "Work Email*"
+                    "default": "Work email"
                 },
                 "TableauManagerUsername": {
-                    "default": "Tableau Services Manager (TSM) Administrator Username*"
+                    "default": "Tableau Services Manager (TSM) administrator username"
                 },
                 "TableauManagerPassword": {
-                    "default": "Tableau Services Manager (TSM) Administrator Password*"
+                    "default": "Tableau Services Manager (TSM) administrator password"
                 },
                 "HostedZoneName": {
-                    "default": "Hosted Zone Name"
+                    "default": "Hosted Zone name"
                 },
                 "KeyPairName": {
-                    "default": "Key Pair Name*"
+                    "default": "Key Pair name"
                 },
                 "PrivateSubnet1ID": {
-                    "default": "Existing VPC Private Subnet 1 ID*"
+                    "default": "Existing VPC private subnet 1 ID"
                 },
                 "PrivateSubnet2ID": {
-                    "default": "Existing VPC Private Subnet 2 ID*"
+                    "default": "Existing VPC private subnet 2 ID"
                 },
                 "PublicSubnet1ID": {
-                    "default": "Existing VPC Public Subnet1 ID*"
+                    "default": "Existing VPC public subnet 1 ID"
                 },
                 "QSS3BucketName": {
-                    "default": "Quick Start S3 Bucket Name*"
+                    "default": "Quick Start S3 bucket name"
                 },
                 "QSS3KeyPrefix": {
-                    "default": "Quick Start S3 Key Prefix"
+                    "default": "Quick Start S3 key prefix"
                 },
                 "RedshiftDatabaseName": {
-                    "default": "Redshift Database Name*"
+                    "default": "Redshift database name"
                 },
                 "RedshiftPassword": {
-                    "default": "Redshift Password*"
+                    "default": "Redshift password"
                 },
                 "ConfirmRedshiftPassword": {
-                    "default": "Confirm Redshift Password"
+                    "default": "Confirm Redshift password"
                 },
                 "RedshiftUsername": {
-                    "default": "Redshift Username*"
+                    "default": "Redshift username"
                 },
                 "IICSUsername": {
-                    "default": "Username for IICS*"
+                    "default": "Username for IICS"
                 },
                 "IICSPassword": {
-                    "default": "Password for IICS*"
+                    "default": "Password for IICS"
                 },
                 "RootStackName": {
-                    "default": "Stack Name"
+                    "default": "Stack name"
                 },
                 "TableauServerLicenseKey": {
-                    "default": "Tableau Server License Key"
+                    "default": "Tableau Server license key"
                 },
                 "VPCID": {
-                    "default": "Existing VPC ID*"
+                    "default": "Existing VPC ID"
                 },
                 "RDSInstancePassword": {
-                    "default": "RDS Instance Password*"
+                    "default": "RDS instance password"
                 },
                 "ConfirmRDSInstancePassword": {
-                    "default": "Confirm RDS Instance Password*"
+                    "default": "Confirm RDS instance password"
                 },
                 "InformaticaAdminUsername": {
-                    "default": "Informatica Administrator Username*"
+                    "default": "Informatica administrator username"
                 },
                 "InformaticaAdminPassword": {
-                    "default": "Informatica Administrator Password*"
+                    "default": "Informatica administrator password"
                 },
                 "ConfirmInformaticaAdminPassword": {
-                    "default": "Confirm Informatica Administrator Password*"
+                    "default": "Confirm Informatica administrator password"
                 },
                 "RemoteAccessCIDR": {
-                    "default": "Remote Access CIDR*"
+                    "default": "Remote access CIDR"
                 },
                 "VPCCIDR": {
-                    "default": "Existing VPC CIDR*"
+                    "default": "Existing VPC CIDR"
                 }
             }
         }
     },
     "Parameters": {
         "IICSUsername": {
-            "Description": "Informatica Intelligent Cloud Services user name",
+            "Description": "Informatica Intelligent Cloud Services user name.",
             "Type": "String",
             "MinLength": "2"
         },
         "IICSPassword": {
             "AllowedPattern": "[a-zA-Z0-9~`!#$%^&*()-_+={}|;:,.<>\\[\\]]*",
             "ConstraintDescription": "Between 8 and 64 chars in length; must contain at least one uppercase letter, one lowercase letter, and one number; can use any printable ASCII character (ASCII code 33 to 126) except ' (single quote), \" (double quote), \\, /, @, or space.",
-            "Description": "The password associated with the Informatica Intelligent Cloud Services. ",
+            "Description": "The password associated with the Informatica Intelligent Cloud Services.",
             "MaxLength": "64",
             "MinLength": "8",
             "NoEcho": "true",
             "Type": "String"
         },
         "EmailID": {
-            "Description": "Enter the e-mail address used for IICS registration.It is also used for the Tableau trial account.",
+            "Description": "Enter the e-mail address used for IICS registration. It is also used for Tableau trial account.",
             "Type": "String",
             "AllowedPattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
             "ConstraintDescription": "email can have only one @. Allowed alphanumeric characters, underscore, period, hyphen and 2-5 character as domain extension"
         },
         "VPCID": {
-            "Description": "ID of the VPC (e.g., vpc-0343606e)",
+            "Description": "ID of the VPC (e.g., vpc-0343606e).",
             "Type": "AWS::EC2::VPC::Id",
             "MinLength": "1"
         },
@@ -211,23 +211,23 @@
             "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$",
             "ConstraintDescription": "CIDR block parameter must be in the form x.x.x.x/16-28",
             "Default": "10.0.0.0/16",
-            "Description": "CIDR block for the VPC",
+            "Description": "CIDR block for the VPC.",
             "Type": "String"
         },
         "PrivateSubnet1ID": {
-            "Description": "ID of the private subnet 1 in Availability Zone 1 (e.g., subnet-a0246dcd).Please make sure to provision a public subnet and two private subnets across different EC2 Availability Zones.",
+            "Description": "ID of the private subnet 1 in Availability Zone 1 (e.g., subnet-a0246dcd).Please make sure to provision one public subnet and two private subnets across different Availability Zones.",
             "Type": "AWS::EC2::Subnet::Id",
             "MinLength": "1",
             "ConstraintDescription": "Mandatory field"
         },
         "PrivateSubnet2ID": {
-            "Description": "ID of the private subnet 2 in Availability Zone 2 (e.g., subnet-a0246dcd).Please make sure to provision a public subnet and two private subnets across different EC2 Availability Zones.",
+            "Description": "ID of the private subnet 2 in Availability Zone 2 (e.g., subnet-a0246dcd).Please make sure to provision one public subnet and two private subnets across different Availability Zones.",
             "Type": "AWS::EC2::Subnet::Id",
             "MinLength": "1",
             "ConstraintDescription": "Mandatory field"
         },
         "PublicSubnet1ID": {
-            "Description": "ID of the public subnet 1 in Availability Zone 1 (e.g., subnet-a0246dcd).Please make sure to provision a public subnet and two private subnets across different EC2 Availability Zones.",
+            "Description": "ID of the public subnet 1 in Availability Zone 1 (e.g., subnet-a0246dcd).Please make sure to provision one public subnet and two private subnets across different Availability Zones.",
             "Type": "AWS::EC2::Subnet::Id",
             "MinLength": "1",
             "ConstraintDescription": "Mandatory field"
@@ -240,11 +240,11 @@
         },
         "HostedZoneName": {
             "Default": "<NONE>",
-            "Description": "Name of Hosted Zone within which the Quick Start will create convenient DNS entries for AWS Resources created by the Quick Start.  If you do not need to create DNS entries or are not using AWS Route53 for DNS, enter '<NONE>', otherwise enter the Hosted Zone name including the trailing period, for example 'dev.example.com.'.",
+            "Description": "Name of Hosted Zone within which the Quick Start will create convenient DNS entries for AWS Resources created by the Quick Start. If you do not need to create DNS entries or are not using AWS Route53 for DNS, leave the default value '<NONE>', otherwise enter the Hosted Zone name including the trailing period, for example 'dev.example.com.'.",
             "Type": "String"
         },
         "RedshiftHost": {
-            "Description": "DNS Name or IP address of the master node of an existing Redshift cluster which you intend to use for the Informatica sample jobs. Leave this <NONE> to create a new Redshift cluster.The cluster should be in the VPC selected by user above.",
+            "Description": "DNS Name or IP address of the master node of an existing Redshift cluster which you intend to use for the Informatica sample jobs. Leave this <NONE> to create a new Redshift cluster. The cluster should be in the VPC selected by user above.",
             "Type": "String",
             "Default": "<NONE>"
         },
@@ -252,13 +252,13 @@
             "AllowedPattern": "([a-z]|[0-9])+",
             "ConstraintDescription": "must contain a-z or 0-9 only.",
             "Default": "quickstart",
-            "Description": "The name of the database to be created in the Redshift cluster for storing visualization data.Please provide the valid database name if you are using an existing cluster for visualization data.The name must contain a-z or 0-9 only.",
+            "Description": "The name of the database to be created in the Redshift cluster for storing visualization data. Please provide the valid database name if you are using an existing cluster for visualization data. The name must contain only a-z or 0-9.",
             "Type": "String"
         },
         "RedshiftPassword": {
             "AllowedPattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d!#$%&\\(\\)*+,-.;<=>?\\[\\]^_`{|}~]{8,64}$",
             "ConstraintDescription": "Between 8 and 64 characters in length; must contain at least one uppercase letter, one lowercase letter, and one number; can use any printable ASCII character (ASCII code 33 to 126) except ' (single quote), \" (double quote), \\, /, @, or space.",
-            "Description": "The password associated with the master user account for the Redshift cluster that is being created.It should be between 8 and 64 chars in length; must contain at least one uppercase letter, one lowercase letter, and one number",
+            "Description": "The password associated with the master user account for the Redshift cluster that is being created. It should be between 8 and 64 chars in length; must contain at least one uppercase letter, one lowercase letter, and one number.",
             "MaxLength": "64",
             "MinLength": "8",
             "NoEcho": "true",
@@ -266,7 +266,8 @@
         },
         "ConfirmRedshiftPassword": {
             "NoEcho": "true",
-            "Type": "String"
+            "Type": "String",
+            "Description": "Confirm the password associated with the master user account for the Redshift cluster that is being created. It must match the value provided in RedshiftPassword field."
         },
         "RedshiftUsername": {
             "AllowedPattern": "([a-z])([a-z]|[0-9])*",
@@ -276,7 +277,7 @@
             "Type": "String"
         },
         "TableauServerAdminPassword": {
-            "Description": "The password for the initial Admin user for Tableau server",
+            "Description": "The password for the initial Admin user for Tableau server.",
             "NoEcho": "true",
             "Type": "String",
             "MinLength": "1",
@@ -284,7 +285,7 @@
         },
         "TableauServerAdminUser": {
             "Default": "admin",
-            "Description": "The name of the initial Admin user for Tableau server.Only alphanumeric characters and underscore are allowed. Should begin with an alphabet. The value must be 5 - 20",
+            "Description": "The name of the initial Admin user for Tableau Server. Only alphanumeric characters and underscore are allowed. Should begin with an alphabet. The value must be 5 - 20 characters in length.",
             "MinLength": "5",
             "MaxLength": "20",
             "Type": "String",
@@ -301,7 +302,7 @@
             "ConstraintDescription": "Only alphanumeric characters and underscore are allowed. Should begin with an alphabet. The value must be 3-30 characters in length."
         },
         "TableauManagerPassword": {
-            "Description": "Tableau Services Manager (TSM) administrator password.Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) is not allowed",
+            "Description": "Tableau Services Manager (TSM) administrator password.Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) is not allowed.",
             "Type": "String",
             "NoEcho": "true",
             "AllowedPattern": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w])(?!.*[\"$]).{8,120}$",
@@ -311,7 +312,7 @@
         },
         "TableauServerLicenseKey": {
             "Default": "",
-            "Description": "License Key (leave blank for trial)",
+            "Description": "License Key. Leave blank for trial.",
             "Type": "String"
         },
         "RDSInstancePassword": {
@@ -324,7 +325,7 @@
             "ConstraintDescription": "It must contain between 8 to 30 printable ASCII characters (excluding /,\", and @)."
         },
         "ConfirmRDSInstancePassword": {
-            "Description": "Password for the database instance associated with Informatica services and Tableau Server tasks.It must contain between 8 to 30 printable ASCII characters (excluding /,\", and @).",
+            "Description": "Confirm password for the database instance associated with Informatica services and Tableau Server tasks. It must match the value provided in RDSInstancePassword field.",
             "Type": "String",
             "NoEcho": "True",
             "MinLength": "8",
@@ -350,7 +351,7 @@
             "ConstraintDescription": "Password must be between 5 to 64 characters and start with a character. Only alphanumeric characters and underscore allowed."
         },
         "ConfirmInformaticaAdminPassword": {
-            "Description": "Password to access Informatica Administrator.Password must be between 5 to 64 characters and start with a character. Only alphanumeric characters and underscore allowed.",
+            "Description": "Confirm Password to access Informatica Administrator. It must match the value provided in InformaticaAdminPassword field.",
             "Type": "String",
             "NoEcho": "True",
             "MinLength": "5",
@@ -366,20 +367,20 @@
         },
         "RootStackName": {
             "Default": "<NONE>",
-            "Description": "Name of Top-Level Stack.",
+            "Description": "Name of root (parent) stack. Leave default when launching in a pre-existing VPC.",
             "Type": "String"
         },
         "QSS3BucketName": {
             "AllowedPattern": "(?=^.{3,63}$)(?!^(\\d+\\.)+\\d+$)(^([a-z0-9]|[a-z0-9][a-z0-9\\-]*[a-z0-9])$)",
             "ConstraintDescription": "Quick Start bucket name can include numbers, lowercase letters and hyphens (-). It cannot start or end with a hyphen (-).",
-            "Default": "aws-quickstart-informatica-tableau",
+            "Default": "aws-quickstart",
             "Description": "S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters and hyphens (-). It cannot start or end with a hyphen (-).",
             "Type": "String"
         },
         "QSS3KeyPrefix": {
             "AllowedPattern": "^[0-9a-z-/]*$",
             "ConstraintDescription": "Quick Start key prefix can include numbers, lowercase letters, hyphens (-), and forward slash (/).",
-            "Default": "",
+            "Default": "quickstart-informatica-tableau-analytics/",
             "Description": "S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, hyphens (-), and forward slash (/).",
             "Type": "String"
         }

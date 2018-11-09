@@ -8,4 +8,4 @@ global:
 tests:
   infa-tableau:
     parameter_input: taskcat-params.json
-    template_file: tableau-awsdata-master.template
+    template_file: informatics-tableau-analytics-master.template

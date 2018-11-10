@@ -285,21 +285,21 @@
         },
         "TableauServerAdminUser": {
             "Default": "admin",
-            "Description": "The name of the initial Admin user for Tableau Server. Only alphanumeric characters and underscore are allowed. Should begin with an alphabet. The value must be 5 - 20 characters in length.",
+            "Description": "The name of the initial Admin user for Tableau Server. Only alphanumeric characters and underscore are allowed. Should begin with an alphabetical character. The value must be 5 - 20 characters in length.",
             "MinLength": "5",
             "MaxLength": "20",
             "Type": "String",
             "AllowedPattern": "^([a-zA-Z][a-z0-9A-Z_]{4,20})$",
-            "ConstraintDescription": "Only alphanumeric characters and underscore are allowed. Should begin with an alphabet. The value must be 5 - 20 characters in length"
+            "ConstraintDescription": "Only alphanumeric characters and underscore are allowed. Should begin with an alphabetical character. The value must be 5 - 20 characters in length"
         },
         "TableauManagerUsername": {
-            "Description": "Tableau Services Manager (TSM) administrator username (cannot be Administrator).Only alphanumeric characters and underscore are allowed. Should begin with an alphabet. The value must be 3-30 in length.",
+            "Description": "Tableau Services Manager (TSM) administrator username (cannot be Administrator).Only alphanumeric characters and underscore are allowed. Should begin with an alphabetical character. The value must be 3-30 in length.",
             "Type": "String",
             "AllowedPattern": "(?!Administrator|administrator)\\b\\w{3,30}",
             "MinLength": "3",
             "MaxLength": "30",
             "Default": "admin",
-            "ConstraintDescription": "Only alphanumeric characters and underscore are allowed. Should begin with an alphabet. The value must be 3-30 characters in length."
+            "ConstraintDescription": "Only alphanumeric characters and underscore are allowed. Should begin with an alphabetical character. The value must be 3-30 characters in length."
         },
         "TableauManagerPassword": {
             "Description": "Tableau Services Manager (TSM) administrator password.Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) is not allowed.",

@@ -217,7 +217,7 @@
       "DefaultConfiguration":{  
          "InstallationConfig":{  
             "InstallationBucket":"tableau-quickstart",
-            "InstallationExecutable":"TableauServer-64bit-2018-3-0.exe"
+            "InstallationExecutable":"TableauServer-64bit.exe"
          },
          "MachineConfiguration":{  
             "SystemVolumeSize":50,

@@ -1376,6 +1376,15 @@
                     }
                 ]
             }
+        },
+        "S3DatalakeBucketName": {
+            "Description": "Name of the S3 bucket used for the data lake",
+            "Value": {
+                "Fn::GetAtt": [
+                    "S3BucketStack",
+                    "Outputs.InformaticaS3Bucket"
+                ]
+            }
         }
     }
 }

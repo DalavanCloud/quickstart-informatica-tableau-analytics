@@ -715,7 +715,7 @@
             "Properties": {
                 "TemplateURL": {
                     "Fn::Sub": [
-                        "https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}templates/informatics-tableau-analytics.template",
+                        "https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}templates/informatica-tableau-analytics.template",
                         {
                             "QSS3Region": {
                                 "Fn::If": [
@@ -911,6 +911,15 @@
                 "Fn::GetAtt": [
                     "TableauAwsdataStack",
                     "Outputs.RDSPrivateName"
+                ]
+            }
+        },
+        "S3DatalakeBucketName": {
+            "Description": "Name of the S3 bucket used for the data lake",
+            "Value": {
+                "Fn::GetAtt": [
+                    "TableauAwsdataStack",
+                    "Outputs.S3DatalakeBucketName"
                 ]
             }
         }

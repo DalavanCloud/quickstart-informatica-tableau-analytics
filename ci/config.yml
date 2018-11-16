@@ -21,4 +21,4 @@ global:
 tests:
   default:
     parameter_input: taskcat-params.json
-    template_file: informatics-tableau-analytics-master.template
+    template_file: informatica-tableau-analytics-master.template
